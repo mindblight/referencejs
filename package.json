@@ -4,8 +4,16 @@
   "description": "Pass references to data in the store, including data that hasn't been stored yet.",
   "main": "index.js",
   "scripts": {
+    "build": "babel src -d lib",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Arion Sprague",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "lodash": "^4.17.4"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.0",
+    "babel-preset-es2016": "^6.22.0"
+  }
 }
