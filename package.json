@@ -1,0 +1,11 @@
+{
+  "name": "redux-references",
+  "version": "0.0.1",
+  "description": "Pass references to data in the store, including data that hasn't been stored yet.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Arion Sprague",
+  "license": "MIT"
+}
