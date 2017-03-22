@@ -1,7 +1,8 @@
 import { expect } from 'chai';
 import {
   isPath,
-  isReference
+  isReference,
+  createReference
 } from '../src/reference';
 
 describe('reference', function() {
@@ -42,6 +43,24 @@ describe('reference', function() {
       expect(isReference({
         path: ['a', 'b']
       })).to.be.true;
+    });
+  });
+
+  describe('createReference', function() {
+    it('should throw error on null path', function() {
+      expect(createReference.bind(null, null)).to.throw(Error);
+    });
+
+    it('should throw error on invalid path', function() {
+      expect(createReference.bind(null, [3])).to.throw(Error);
+    });
+
+    it('should return valid reference', function() {
+      const path = ['a', 'b'];
+      const reference = createReference(path);
+
+      expect(isReference(reference)).to.be.true;
+      expect(reference).to.have.property('path').equal(path);
     });
   });
 });
