@@ -2,8 +2,11 @@ import { expect } from 'chai';
 import {
   isPath,
   isReference,
-  createReference
+  createReference,
+  resolveReference
 } from '../src/reference';
+import cloneDeep from 'lodash/cloneDeep'
+
 
 describe('reference', function() {
 
@@ -61,6 +64,44 @@ describe('reference', function() {
 
       expect(isReference(reference)).to.be.true;
       expect(reference).to.have.property('path').equal(path);
+    });
+  });
+
+
+  describe('resolveReference', function() {
+    it('should throw error on empty store', function() {
+      expect(resolveReference.bind(null, null)).to.throw(Error);
+    });
+
+    it('should throw error on invalid reference', function() {
+      expect(resolveReference.bind(null, {}, {})).to.throw(Error);
+    });
+
+    it('should not mutate the passed state', function() {
+      const reference = createReference(['a', 'b']);
+      const state = {
+        a: 1,
+        b: 'hi'
+      };
+
+      const expectedState = cloneDeep(state);
+
+      resolveReference(state, reference, 5);
+
+      expect(state).to.deep.equal(expectedState);
+    });
+
+    it('should return state with value placed at reference.path', function() {
+      const path = ['a', 'b'];
+      const reference = createReference(path);
+      const value = 5;
+      const initialState = {
+        c: 6
+      }
+      const state = resolveReference(initialState, reference, value);
+
+      expect(state).to.have.property('c').equal(6);
+      expect(state).to.have.deep.property(path.join('.')).equal(value);
     });
   });
 });

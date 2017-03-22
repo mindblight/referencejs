@@ -24,10 +24,6 @@ export function createReference(path) {
   return { path };
 }
 
-// TODO: Add support for immutable.js
-export const EMPTY_REFERENCE = Symbol('empty reference');
-
-
 export function resolveReference(store, reference, value) {
   if (isNill(store)) {
     throw new Error('"store" must be defined');
@@ -35,4 +31,8 @@ export function resolveReference(store, reference, value) {
   if (!isReference(reference)) {
     throw new Error('"reference" must be a valid reference');
   }
+
+  const newStore = cloneDeep(store);
+  set(newStore, reference.path, value);
+  return newStore;
 }
