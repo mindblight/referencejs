@@ -33,7 +33,6 @@ export function isReference(reference :*) :boolean {
 /* Reference */
 export function createReference(path :Path) {
   if (!isPath(path)) {
-
     throw Error(`path" must be a non-empty array of strings. Received ${path.join(', ')}`);
   }
 
@@ -87,9 +86,11 @@ export function smartDereference(store :Store, val :*) :* {
 
   if (isReference(val)) {
     return dereference(store, val);
-  } else if(isArray(val)) {
+  }
+  else if(isArray(val)) {
     return val.map(value => smartDereference(store, value));
-  } else if (isPlainObject(val)) {
+  }
+  else if (isPlainObject(val)) {
     return mapValues(val, (value) => {
       return smartDereference(store, value);
     });

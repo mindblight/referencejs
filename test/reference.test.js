@@ -169,14 +169,20 @@ describe('reference', function() {
   describe('smartDereference', function() {
     const value1 = 9;
     const value2 = 20;
-    const store = {
-      a: {
-        b: value1,
-        c: value2,
-      },
-    };
-    const reference1 = createReference(['a', 'b']);
-    const reference2 = createReference(['a', 'c']);
+    let store;
+    let reference1;
+    let reference2;
+
+    beforeEach(function() {
+      store = {
+        a: {
+          b: value1,
+          c: value2,
+        },
+      };
+      reference1 = createReference(['a', 'b']);
+      reference2 = createReference(['a', 'c']);
+    });
 
     it('should throw error on null store', function() {
       expect(smartDereference.bind(null, null)).to.throw(Error);
@@ -244,6 +250,50 @@ describe('reference', function() {
       };
 
       expect(smartDereference(store, input)).to.deep.equal(expected);
+    });
+
+    it('should not recurse by default', function() {
+      reference1 = createReference(['a']);
+      reference2 = createReference(['c']);
+      const object = {
+        b: reference2,
+      };
+      store = {
+        a: object,
+        c: value2,
+      };
+
+      const input = {
+        foo: reference1,
+      };
+      const expected = {
+        foo: object,
+      };
+
+      expect(smartDereference(store, input)).to.deep.equal(expected);
+    });
+
+    it.skip('should not recurse when recurse=true', function() {
+      reference1 = createReference(['a']);
+      reference2 = createReference(['c']);
+      const object = {
+        b: reference2,
+      };
+      store = {
+        a: object,
+        c: value2,
+      };
+
+      const input = {
+        foo: reference1,
+      };
+      const expected = {
+        foo: {
+          b: value2,
+        },
+      };
+
+      expect(smartDereference(store, input, true)).to.deep.equal(expected);
     });
   });
 });
