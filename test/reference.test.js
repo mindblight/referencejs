@@ -1,3 +1,5 @@
+/* eslint-disable prefer-arrow-callback */
+/* eslint-disable no-unused-expressions */
 import { expect } from 'chai';
 import {
   isPath,
@@ -14,7 +16,7 @@ import cloneDeep from 'lodash/cloneDeep';
 
 describe('reference', function() {
 
-  describe('isPath', function () {
+  describe('isPath', function() {
     it('should return false on non-array', function() {
       expect(isPath({})).to.be.false;
     });
@@ -24,15 +26,15 @@ describe('reference', function() {
     });
 
     it('should return false on non-string array', function() {
-      expect(isPath([1,'hi'])).to.be.false;
+      expect(isPath([1, 'hi'])).to.be.false;
     });
 
     it('should return false on string array with empty string', function() {
-      expect(isPath(['','hi'])).to.be.false;
+      expect(isPath(['', 'hi'])).to.be.false;
     });
 
     it('should return true on string array', function() {
-      expect(isPath(['bye','hi'])).to.be.true;
+      expect(isPath(['bye', 'hi'])).to.be.true;
     });
   });
 
@@ -48,7 +50,7 @@ describe('reference', function() {
 
     it('should return true on valid reference', function() {
       expect(isReference({
-        path: ['a', 'b']
+        path: ['a', 'b'],
       })).to.be.true;
     });
   });
@@ -86,7 +88,7 @@ describe('reference', function() {
       const reference = createReference(['a', 'b']);
       const state = {
         a: 1,
-        b: 'hi'
+        b: 'hi',
       };
 
       const expectedState = cloneDeep(state);
@@ -101,7 +103,7 @@ describe('reference', function() {
       const reference = createReference(path);
       const value = 5;
       const initialState = {
-        c: 6
+        c: 6,
       };
       const state = resolveReference(initialState, reference, value);
 
@@ -121,7 +123,7 @@ describe('reference', function() {
     });
 
     it('should return false when reference does not exist', function() {
-      const reference = createReference(['a'])
+      const reference = createReference(['a']);
       expect(isValueAtReference({}, reference)).to.be.false;
     });
 
@@ -129,8 +131,8 @@ describe('reference', function() {
       const value = 9;
       const store = {
         a: {
-          b: value
-        }
+          b: value,
+        },
       };
       const reference = createReference(['a', 'b']);
 
@@ -210,7 +212,7 @@ describe('reference', function() {
 
     it('should ignore non-reference in array', function() {
       const input = [reference1, value2];
-      const expected = [value1, value2]
+      const expected = [value1, value2];
 
       expect(smartDereference(store, input)).to.deep.equal(expected);
     });

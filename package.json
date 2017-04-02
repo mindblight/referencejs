@@ -6,8 +6,8 @@
   "scripts": {
     "build": "webpack --config config/webpack.config.js",
     "test": "karma start config/karma.conf.js",
-    "lint": "eslint src || exit 0",
-    "lint-fix": "eslint --fix src || exit 0",
+    "lint": "eslint src test || exit 0",
+    "lint-fix": "eslint --fix src test || exit 0",
     "flow": "flow"
   },
   "author": "Arion Sprague",
