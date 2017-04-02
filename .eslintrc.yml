@@ -14,12 +14,6 @@ parserOptions:
 plugins:
   - flowtype
 rules:
-  'flowtype/space-after-type-colon':
-    - error
-    - never
-  'flowtype/space-before-type-colon':
-    - error
-    - always
   indent:
     - error
     - 2
@@ -34,6 +28,16 @@ rules:
   no-unused-expressions:
     - error
   eol-last:
+    - error
+    - always
+  eqeqeq:
+    - error
+
+  # Flowtype
+  'flowtype/space-after-type-colon':
+    - error
+    - never
+  'flowtype/space-before-type-colon':
     - error
     - always
 
