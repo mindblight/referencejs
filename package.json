@@ -13,6 +13,7 @@
   },
   "author": "Arion Sprague",
   "license": "MIT",
+  "keywords": ["reference"],
   "dependencies": {
     "lodash": "^4.17.4"
   },
