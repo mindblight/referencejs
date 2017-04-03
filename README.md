@@ -1,4 +1,5 @@
-# Referencejs
+# Referencejs [![Build Status](https://travis-ci.org/mindblight/referencejs.svg?branch=master)](https://travis-ci.org/mindblight/referencejs)
+
 Reference JS lets you create references to any location in a JSON tree.
 This is useful for
 
