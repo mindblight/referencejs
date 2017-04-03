@@ -2,7 +2,7 @@
   "name": "referencejs",
   "version": "0.1.0",
   "description": "Easily create, update, and manipulate references to values in a JSON document.",
-  "main": "index.js",
+  "main": "lib/reference.js",
   "scripts": {
     "build": "babel src -d lib",
     "test": "karma start config/karma.conf.js",
