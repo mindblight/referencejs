@@ -1,7 +1,7 @@
 {
-  "name": "redux-references",
+  "name": "referencer",
   "version": "0.0.1",
-  "description": "Pass references to data in the store, including data that hasn't been stored yet.",
+  "description": "Easily create, update, and manipulate references to values in a JSON document.",
   "main": "index.js",
   "scripts": {
     "build": "webpack --config config/webpack.config.js",
