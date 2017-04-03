@@ -275,6 +275,36 @@ describe('reference', function() {
       expect(smartDereference(store, input)).to.deep.equal(expected);
     });
 
+    it('should dereference itself', function() {
+      reference1 = createReference(['b', 'b1']);
+      reference2 = createReference(['c']);
+      store = {
+        a: reference1,
+        b: {
+          b1: value1,
+        },
+        c: value2,
+        d: {
+          d1: reference2,
+        },
+        e: reference1,
+      };
+
+      const expected = {
+        a: value1,
+        b: {
+          b1: value1,
+        },
+        c: value2,
+        d: {
+          d1: value2,
+        },
+        e: value1,
+      };
+
+      expect(smartDereference(store, store)).to.deep.equal(expected);
+    });
+
     it.skip('should not recurse when recurse=true', function() {
       reference1 = createReference(['a']);
       reference2 = createReference(['c']);
