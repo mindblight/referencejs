@@ -1,5 +1,5 @@
 {
-  "name": "referencer",
+  "name": "referencejs",
   "version": "0.0.1",
   "description": "Easily create, update, and manipulate references to values in a JSON document.",
   "main": "index.js",
