@@ -2,9 +2,9 @@
   "name": "referencejs",
   "version": "0.1.0",
   "description": "Easily create, update, and manipulate references to values in a JSON document.",
-  "main": "index.js",
+  "main": "lib/reference.js",
   "scripts": {
-    "build": "webpack --config config/webpack.config.js",
+    "build": "babel src -d lib",
     "test": "karma start config/karma.conf.js",
     "test:dev": "TEST_PROFILE=dev karma start config/karma.conf.js",
     "lint": "eslint src test || exit 0",
@@ -13,10 +13,16 @@
   },
   "author": "Arion Sprague",
   "license": "MIT",
+  "keywords": ["reference"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mindblight/referencejs.git"
+  },
   "dependencies": {
     "lodash": "^4.17.4"
   },
   "devDependencies": {
+    "babel-cli": "^6.24.0",
     "babel-core": "^6.24.0",
     "babel-eslint": "^7.2.1",
     "babel-loader": "^6.4.1",
