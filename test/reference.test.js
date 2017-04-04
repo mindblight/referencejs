@@ -111,6 +111,36 @@ describe('resolveReference', function() {
     expect(state).to.have.property('c').equal(6);
     expect(state).to.have.deep.property(path.join('.')).equal(value);
   });
+
+  it('should handle arrays in store', function() {
+    const path = ['a', 0];
+    const reference = createReference(path);
+    const value = 'foo';
+    const initialState = {
+      a: [],
+    };
+    const state = resolveReference(initialState, reference, value);
+    const expectedState = {
+      a: [value],
+    };
+
+    expect(state).to.deep.equal(expectedState);
+  });
+
+  it('should handle deep object creation', function() {
+    const path = ['a', 0, 'b'];
+    const reference = createReference(path);
+    const value = 'foo';
+    const initialState = {};
+    const state = resolveReference(initialState, reference, value);
+    const expectedState = {
+      a: [{
+        b: value,
+      }],
+    };
+
+    expect(state).to.deep.equal(expectedState);
+  });
 });
 
 
