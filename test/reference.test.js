@@ -22,8 +22,8 @@ describe('isPath', function() {
     expect(isPath([])).to.be.false;
   });
 
-  it('should return false on non-string array', function() {
-    expect(isPath([1, 'hi'])).to.be.false;
+  it('should return false on non-string, non-integer array', function() {
+    expect(isPath([{}, 'hi'])).to.be.false;
   });
 
   it('should return false on string array with empty string', function() {
@@ -32,6 +32,10 @@ describe('isPath', function() {
 
   it('should return true on string array', function() {
     expect(isPath(['bye', 'hi'])).to.be.true;
+  });
+
+  it('should support array indices', function() {
+    expect(isPath(['array', 5])).to.be.true;
   });
 });
 

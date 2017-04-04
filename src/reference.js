@@ -1,6 +1,7 @@
 // @flow
 import isArray from 'lodash/isArray';
 import isString from 'lodash/isString';
+import isInteger from 'lodash/isInteger';
 import isNill from 'lodash/isNil';
 import isPlainObject from 'lodash/isPlainObject';
 import set from 'lodash/set';
@@ -11,7 +12,8 @@ import mapValues from 'lodash/mapValues';
 
 
 /* Types */
-export type Path = string[];
+export type PathSegment = string | number;
+export type Path = PathSegment[];
 export type Reference = {
   path :Path,
 };
@@ -21,8 +23,10 @@ export type Store = { [key :string] :* };
 export function isPath(path :Path) :boolean {
   return isArray(path) &&
     path.length > 0 &&
-    path.every((pathPart) => {
-      return isString(pathPart) && pathPart.length > 0;
+    path.every((pathSegment) => {
+      // TODO: Add lodash typings and remove 'any' typecast
+      return (isInteger(pathSegment) && (pathSegment :any) >= 0)
+        || isString(pathSegment) && (pathSegment :any).length > 0;
     });
 }
 
@@ -33,7 +37,7 @@ export function isReference(reference :*) :boolean {
 /* Reference */
 export function createReference(path :Path) {
   if (!isPath(path)) {
-    throw Error(`path" must be a non-empty array of strings. Received ${path.join(', ')}`);
+    throw Error(`path" must be a non-empty array of strings and integers. Received ${path.join(', ')}`);
   }
 
   return { path };
