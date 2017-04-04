@@ -35,7 +35,7 @@ export function isReference(reference :*) :boolean {
 }
 
 /* Reference */
-export function createReference(path :Path) {
+export function createReference(path :Path) :Reference {
   if (!isPath(path)) {
     throw Error(`path" must be a non-empty array of strings and integers. Received ${path.join(', ')}`);
   }
@@ -43,7 +43,7 @@ export function createReference(path :Path) {
   return { path };
 }
 
-export function resolveReference(store :Store, reference :Reference, value :*) {
+export function resolveReference(store :Store, reference :Reference, value :*) :Store {
   if (isNill(store)) {
     throw new Error('"store" must be defined');
   }
