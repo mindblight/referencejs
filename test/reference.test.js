@@ -196,6 +196,16 @@ describe('dereference', function() {
 
     expect(dereference(store, reference)).to.equal(value);
   });
+
+  it('should derefence arrays', function() {
+    const value = {};
+    const store = {
+      a: [value],
+    };
+    const reference = createReference(['a', 0]);
+
+    expect(dereference(store, reference)).to.equal(value);
+  });
 });
 
 
