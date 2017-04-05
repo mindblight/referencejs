@@ -1,7 +1,5 @@
 // @flow
 import isArray from 'lodash/isArray';
-import isString from 'lodash/isString';
-import isInteger from 'lodash/isInteger';
 import isNill from 'lodash/isNil';
 import isPlainObject from 'lodash/isPlainObject';
 import set from 'lodash/set';
@@ -10,6 +8,7 @@ import has from 'lodash/has';
 import cloneDeep from 'lodash/cloneDeep';
 import mapValues from 'lodash/mapValues';
 
+import isPathSegment from './isPathSegment';
 
 /* Types */
 export type PathSegment = string | number;
@@ -20,14 +19,10 @@ export type Reference = {
 export type Store = { [key :string] :* };
 
 /* Validation */
-export function isPath(path :Path) :boolean {
+export function isPath(path :*) :boolean {
   return isArray(path) &&
     path.length > 0 &&
-    path.every((pathSegment) => {
-      // TODO: Add lodash typings and remove 'any' typecast
-      return (isInteger(pathSegment) && (pathSegment :any) >= 0)
-        || isString(pathSegment) && (pathSegment :any).length > 0;
-    });
+    path.every(isPathSegment);
 }
 
 export function isReference(reference :*) :boolean {
