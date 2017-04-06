@@ -2,7 +2,6 @@
 /* eslint-disable no-unused-expressions */
 import { expect } from 'chai';
 import {
-  isPath,
   isReference,
   createReference,
   resolveReference,
@@ -12,23 +11,6 @@ import {
   smartDereference,
 } from '../src/reference';
 import cloneDeep from 'lodash/cloneDeep';
-
-
-describe('isReference', function() {
-  it('should return false on null', function() {
-    expect(isReference(null)).to.be.false;
-  });
-
-  it('should return false on object without valid path', function() {
-    expect(isReference({})).to.be.false;
-  });
-
-  it('should return true on valid reference', function() {
-    expect(isReference({
-      path: ['a', 'b'],
-    })).to.be.true;
-  });
-});
 
 
 describe('createReference', function() {
