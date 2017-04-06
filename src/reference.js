@@ -8,7 +8,8 @@ import has from 'lodash/has';
 import cloneDeep from 'lodash/cloneDeep';
 import mapValues from 'lodash/mapValues';
 
-import isPathSegment from './isPathSegment';
+import isPath from './isPath';
+
 
 /* Types */
 export type PathSegment = string | number;
@@ -19,12 +20,6 @@ export type Reference = {
 export type Store = { [key :string] :* };
 
 /* Validation */
-export function isPath(path :*) :boolean {
-  return isArray(path) &&
-    path.length > 0 &&
-    path.every(isPathSegment);
-}
-
 export function isReference(reference :*) :boolean {
   return !!reference && isPath(reference.path);
 }

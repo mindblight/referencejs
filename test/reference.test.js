@@ -13,32 +13,6 @@ import {
 } from '../src/reference';
 import cloneDeep from 'lodash/cloneDeep';
 
-describe('isPath', function() {
-  it('should return false on non-array', function() {
-    expect(isPath({})).to.be.false;
-  });
-
-  it('should return false on empty array', function() {
-    expect(isPath([])).to.be.false;
-  });
-
-  it('should return false on non-string, non-integer array', function() {
-    expect(isPath([{}, 'hi'])).to.be.false;
-  });
-
-  it('should return false on string array with empty string', function() {
-    expect(isPath(['', 'hi'])).to.be.false;
-  });
-
-  it('should return true on string array', function() {
-    expect(isPath(['bye', 'hi'])).to.be.true;
-  });
-
-  it('should support array indices', function() {
-    expect(isPath(['array', 5])).to.be.true;
-  });
-});
-
 
 describe('isReference', function() {
   it('should return false on null', function() {
