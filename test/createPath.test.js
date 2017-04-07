@@ -9,7 +9,7 @@ import createPathImmutable from '../src/immutable/createPath';
 import isPathImmutable from '../src/immutable/isPath';
 
 
-describe('isPath', function() {
+describe('createPath', function() {
   describe('Plain', function() {
     it('should return new path array', function() {
       const pathArray = ['b', 1];

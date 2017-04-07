@@ -8,7 +8,7 @@ import isPathImmutable from '../src/immutable/isPath';
 
 
 describe('isPath', function() {
-  describe('JSON', function() {
+  describe('Plain', function() {
     it('should return false on non-array', function() {
       expect(isPathPlain({})).to.be.false;
     });
