@@ -5,7 +5,7 @@ This is useful for
 
 1. For normalizing and denormalizing data without needing an explicit schema
 2. For referencing data that doesn't yet exist in the store (e.g. async data)
-3. (COMING) For normalizing and denormalizing immutable data
+3. For normalizing and denormalizing immutable data
 
 ## A Basic Example
 
