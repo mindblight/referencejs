@@ -11,7 +11,7 @@ import {
   Stack,
 } from 'immutable';
 
-import isImmutable from '../src/immutable/isImmutable';
+import isImmutable from '../src/immutable/_isImmutable';
 
 describe('isImmutable', function() {
   it('should return true on List', function() {
