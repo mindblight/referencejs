@@ -5,7 +5,7 @@ import isPath from './isPath';
 import type { FirstArg as FirstArgPlain } from '../createPath';
 import createPathPlain from '../createPath';
 
-type FirstArg = FirstArgPlain | List<PathSegment>;
+export type FirstArg = FirstArgPlain | List<PathSegment>;
 
 /**
  * Create a reference path from an array of path segments, or multiple arguments
