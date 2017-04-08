@@ -5,6 +5,9 @@
   "main": "lib/index.js",
   "scripts": {
     "build": "babel src -d lib",
+    "build:docs": "npm-run-all _docs:clean _docs:build",
+    "_docs:clean": "rm docs/api.md",
+    "_docs:build": "documentation build src/**/*.js -f md --document-exported -o docs/api.md",
     "test": "karma start config/karma.conf.js",
     "test:dev": "TEST_PROFILE=dev karma start config/karma.conf.js",
     "lint": "eslint src test || exit 0",
@@ -33,6 +36,7 @@
     "babel-preset-es2015": "^6.24.0",
     "chai": "^3.5.0",
     "chai-immutable": "^1.6.0",
+    "documentation": "^4.0.0-beta.18",
     "eslint": "^3.18.0",
     "eslint-plugin-flowtype": "^2.30.4",
     "flow-bin": "^0.42.0",
@@ -44,6 +48,7 @@
     "karma-phantomjs-launcher": "^1.0.4",
     "karma-webpack": "^2.0.3",
     "mocha": "^3.2.0",
+    "npm-run-all": "^4.0.2",
     "webpack": "^2.3.0"
   }
 }

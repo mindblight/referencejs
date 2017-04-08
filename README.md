@@ -68,6 +68,9 @@ significantly from your store
     // familyTree will contain the user objects instead of the references  
     const familyTree = smartDereference(store, familyTree);
 
+## Full API
+Read full [API](docs/api.md) docs.
+
 ## What's a Reference?
 A reference is an object that contains everything needed to find a value in a JSON object (called the store).
 The signature looks like:
