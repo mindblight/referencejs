@@ -1,3 +1,4 @@
+// @flow
 import isArrayLikeObject from 'lodash/isArrayLikeObject';
 import clone from 'lodash/clone';
 

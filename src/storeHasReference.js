@@ -1,3 +1,4 @@
+// @flow
 import isNill from 'lodash/isNil';
 import has from 'lodash/has';
 

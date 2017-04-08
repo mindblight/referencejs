@@ -1,8 +1,10 @@
+// @flow
 import set from 'lodash/set';
 import cloneDeep from 'lodash/cloneDeep';
 import isNill from 'lodash/isNil';
 
 import isReference from './isReference';
+import type { Store, Reference } from './typings';
 
 export default function resolveReference(store :Store, reference :Reference, value :*) :Store {
   if (isNill(store)) {
