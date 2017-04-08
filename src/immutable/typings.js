@@ -1,7 +1,8 @@
-import { Iterable, Map } from 'immutable';
+// @flow
+import { List, Map, Record } from 'immutable';
 
 export type PathSegment = string | number;
-export type ImmutablePath = Iterable<PathSegment>;
+export type ImmutablePath = List<PathSegment>;
 
-export type ImmutableReference = Map<string, ImmutablePath>;
+export type ImmutableReference = Record<{ path :ImmutablePath}>;
 export type ImmutableStore = Map<string, *>;

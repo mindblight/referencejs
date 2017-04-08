@@ -1,7 +1,7 @@
-import { Map } from 'immutable';
+import isImmutable from './_isImmutable';
 import isPath from './isPath';
 
 
 export default function isReference(reference :*) :boolean {
-  return Map.isMap(reference) && isPath(reference.get('path'));
+  return isImmutable(reference) && isPath(reference.get('path'));
 }
