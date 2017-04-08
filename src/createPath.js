@@ -24,8 +24,7 @@ export default function createPath(firstArg :FirstArg, ...pathSegments :PathSegm
     }
     path = clone(firstArg);
   } else {
-    path = clone(pathSegments);
-    path.unshift(firstArg);
+    path = [(firstArg :any)].concat(pathSegments);
   }
 
   if (!isPath(path)) {

@@ -23,9 +23,9 @@ export default function createPath(firstArg :FirstArg, ...pathSegments :PathSegm
     if (pathSegments.length > 0) {
       throw new Error('accepts single array of PathSegments, or multiple pathSegment arguments');
     }
-    path = ( firstArg :List<PathSegment> );
+    path = ( firstArg :any );
   } else {
-    path = List(createPathPlain(firstArg, ...pathSegments));
+    path = List(createPathPlain((firstArg :any), ...pathSegments));
   }
 
   if (!isPath(path)) {
