@@ -1,9 +1,9 @@
 // @flow
 import isPathSegment from './isPathSegment';
-import isArray from 'lodash/isArray';
+import isArrayLikeObject from 'lodash/isArrayLikeObject';
 
 export default function isPath(path :*) :boolean {
-  return isArray(path) &&
+  return isArrayLikeObject(path) &&
     path.length > 0 &&
     path.every(isPathSegment);
 }
