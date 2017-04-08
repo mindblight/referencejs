@@ -25,7 +25,7 @@ describe('storeHasReference', function() {
       expect(storeHasReferencePlain({}, reference)).to.be.false;
     });
 
-    it('should return value at reference', function() {
+    it('should return true when reference exists', function() {
       const value = 9;
       const store = {
         a: {
@@ -60,7 +60,7 @@ describe('storeHasReference', function() {
           b: value,
         },
       });
-      const reference = createReferenceImmutable(['a', 'b']);
+      const reference = createReferenceImmutable('a', 'b');
 
       expect(storeHasReferenceImmutable(store, reference)).to.be.true;
     });

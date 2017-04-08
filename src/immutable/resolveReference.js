@@ -4,10 +4,10 @@ import isInteger from 'lodash/isInteger';
 import { Map, List } from 'immutable';
 
 import isReference from './isReference';
-import type { Store, Reference, PathSegment } from './typings';
+import type { ImmutableStore, ImmutableReference, PathSegment } from './typings';
 
 
-export default function resolveReference(store :Store, reference :Reference, value :*) :Store {
+export default function resolveReference(store :ImmutableStore, reference :ImmutableReference, value :*) :ImmutableStore {
   if (isNill(store)) {
     throw new Error('"store" must be defined');
   }
@@ -22,7 +22,7 @@ export default function resolveReference(store :Store, reference :Reference, val
 
   const pathObject = path.reduceRight((objectForMerge, pathSegment :PathSegment) => {
     if (isInteger(pathSegment)) {
-      return List().set(pathSegment, objectForMerge);
+      return List().set((pathSegment :any), objectForMerge);
     }
     return Map({
       [pathSegment]: objectForMerge,

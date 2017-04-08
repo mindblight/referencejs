@@ -1,10 +1,14 @@
+// @flow
 import isNill from 'lodash/isNil';
 
 import isReference from './isReference';
-import type { Store, Reference } from './typings';
+import type { ImmutableStore, ImmutableReference } from './typings';
 
 
-export default function storeHasReference(store :Store, reference :Reference) {
+export default function storeHasReference(
+  store :ImmutableStore,
+  reference :ImmutableReference) :boolean {
+
   if (isNill(store)) {
     throw new Error('"store" must be defined');
   }
