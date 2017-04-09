@@ -3,7 +3,7 @@
 describe('createPath', function() {
   describe('Plain', function() {
     it('should import', function() {
-      require('../src/index');
+      require('../src/plain/index');
     });
   });
 

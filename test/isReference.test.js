@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import { Map, fromJS } from 'immutable';
 
 import './applyChaiPlugins';
-import isReferencePlain from '../src/isReference';
+import isReferencePlain from '../src/plain/isReference';
 import isReferenceImmutable from '../src/immutable/isReference';
 
 

@@ -3,7 +3,7 @@ import isNil from 'lodash/isNil';
 import get from 'lodash/get';
 
 import isReference from './isReference';
-import EmptyRefrence from './EmptyReference';
+import EmptyRefrence from '../EmptyReference';
 import storeHasReference from './storeHasReference';
 import type { Store, Reference } from './typings';
 

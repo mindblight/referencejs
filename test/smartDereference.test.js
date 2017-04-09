@@ -4,9 +4,9 @@ import { expect } from 'chai';
 import './applyChaiPlugins';
 
 import EmptyReference from '../src/EmptyReference';
-import createReferencePlain from '../src/createReference';
+import createReferencePlain from '../src/plain/createReference';
 import createReferenceImmutable from '../src/immutable/createReference';
-import smartDereferencePlain from '../src/smartDereference';
+import smartDereferencePlain from '../src/plain/smartDereference';
 import smartDereferenceImmutable from '../src/immutable/smartDereference';
 
 

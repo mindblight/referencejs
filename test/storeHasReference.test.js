@@ -3,8 +3,8 @@ import { expect } from 'chai';
 import { fromJS } from 'immutable';
 import './applyChaiPlugins';
 
-import storeHasReferencePlain from '../src/storeHasReference';
-import createReferencePlain from '../src/createReference';
+import storeHasReferencePlain from '../src/plain/storeHasReference';
+import createReferencePlain from '../src/plain/createReference';
 
 import storeHasReferenceImmutable from '../src/immutable/storeHasReference';
 import createReferenceImmutable from '../src//immutable/createReference';

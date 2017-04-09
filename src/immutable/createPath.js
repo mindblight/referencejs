@@ -3,8 +3,8 @@ import { List } from 'immutable';
 
 import type { PathSegment, ImmutablePath } from './typings';
 import isPath from './isPath';
-import type { FirstArg as FirstArgPlain } from '../createPath';
-import createPathPlain from '../createPath';
+import type { FirstArg as FirstArgPlain } from '../plain/createPath';
+import createPathPlain from '../plain/createPath';
 
 export type FirstArg = FirstArgPlain | List<PathSegment>;
 
