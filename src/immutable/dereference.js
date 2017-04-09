@@ -1,10 +1,11 @@
+// @flow
 import isNil from 'lodash/isNil';
 
 import isReference from './isReference';
 import EmptyRefrence from '../EmptyReference';
-import type { Store, Reference } from './typings';
+import type { ImmutableStore, ImmutableReference } from './typings';
 
-export default function dereference(store :Store, reference :Reference) :* {
+export default function dereference(store :ImmutableStore, reference :ImmutableReference) :* {
   if (isNil(store)) {
     throw new Error('"store" must be defined');
   }

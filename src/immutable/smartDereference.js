@@ -5,9 +5,9 @@ import { Record } from 'immutable';
 import isImmutable from './_isImmutable';
 import isReference from './isReference';
 import dereference from './dereference';
-import type { Store } from './typings';
+import type { ImmutableStore } from './typings';
 
-export default function smartDereference(store :Store, val :*) :* {
+export default function smartDereference(store :ImmutableStore, val :*) :* {
   if (isNil(store)) {
     throw new Error('"store" must be defined');
   }
