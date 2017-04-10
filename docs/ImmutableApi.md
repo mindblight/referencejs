@@ -2,153 +2,20 @@
 
 ### Table of Contents
 
--   [PathSegment](#pathsegment)
--   [isPathSegment](#ispathsegment)
--   [isPath](#ispath)
--   [isReference](#isreference)
--   [EmptyReference](#emptyreference)
--   [storeHasReference](#storehasreference)
 -   [createPath](#createpath)
--   [resolveReference](#resolvereference)
--   [dereference](#dereference)
--   [ImmutablePath](#immutablepath)
 -   [createReference](#createreference)
+-   [dereference](#dereference)
+-   [EmptyReference](#emptyreference)
+-   [ImmutablePath](#immutablepath)
 -   [ImmutableReference](#immutablereference)
--   [smartDereference](#smartdereference)
 -   [ImmutableStore](#immutablestore)
-
-## PathSegment
-
-a non-empty string, or a non-negative integer (index)
-
-Type: ([string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) \| [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number))
-
-**Examples**
-
-```javascript
-const pathSegmentString = 'hi';
-const PathSegmentInt = 0;
-```
-
-## isPathSegment
-
-Tests whether the given argument is a [PathSegment](#pathsegment)
-
-**Parameters**
-
--   `maybePathSegment` **any** 
-
-**Examples**
-
-```javascript
-import isPathSegment from 'referencejs/isPathSegment';
-isPathSegment('users') === true
-isPathSegment(5) === true
-isPathSegment({}) === false
-```
-
-Returns **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
-
-## isPath
-
-tests whether the argument is a [ImmutablePath](#immutablepath)
-
-**Parameters**
-
--   `maybePath`  
--   `path`  
-
-**Examples**
-
-```javascript
-import { List } from 'immutable';
-import isPath from 'referencejs/immutable/isPath';
-
-isPath(List(['foo', 0])) === true;
-isPath(['foo', 0]) === false;
-isPath(List(['', -10])) === false;
-```
-
-Returns **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
-
-## isReference
-
-Tests whether the argument is an [ImmutableReference](#immutablereference).
-[ImmutableReference](#immutablereference) is typed as a [Record](Record), however the only requirement
-is that it is an Immutable object where `get('path')` returns an [ImmutablePath](#immutablepath).
-
-**Parameters**
-
--   `maybeReference`  
--   `reference` **any** 
-
-**Examples**
-
-```javascript
-import isReference from 'referencejs/immutable/isReference';
-import createReference from 'referencejs/immutable/createReference';
-
-isReference(createReference('foo')) === true;
-isReference({}) === false;
-isReference(null) === false;
-```
-
-Returns **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
-
-## EmptyReference
-
-A [Symbol](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol) returned when a [Reference](Reference) or [ImmutableReference](#immutablereference)
-is not present in [Store](Store) or [ImmutableStore](#immutablestore)
-
-**Examples**
-
-```javascript
-import createReference from 'referencejs/plain/createReference';
-import dereference from 'referencejs/plain/dereference';
-
-const store = {};
-const reference = createReference('nothing', 'here');
-dereference(store, reference) === EmptyReference
-```
-
-```javascript
-import { Map } from 'immutable';
-import createReference from 'referencejs/immutable/createReference';
-import dereference from 'referencejs/immutable/dereference';
-
-const store = Map();
-const reference = createReference('nothing', 'here');
-dereference(store, reference) === EmptyReference
-```
-
-## storeHasReference
-
-Test if [ImmutableReference](#immutablereference) is set in [ImmutableStore](#immutablestore).
-
-**Parameters**
-
--   `store` **[ImmutableStore](#immutablestore)** 
--   `reference` **[ImmutableReference](#immutablereference)** 
-
-**Examples**
-
-```javascript
-import { Map } from 'immutable';
-import storehasReference from 'referencejs/immutable/storehasReference';
-import createReference from 'referencejs/immutable/createReference';
-
-const store = Map({
-  foo: 5,
-});
-
-const reference = createReference('foo');
-const emptyRefrence = createReference('bar');
-
-storehasReference(store, foo) === true;
-storehasReference(store, emptyRefrence) === false;
-```
-
-Returns **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
+-   [isPath](#ispath)
+-   [isPathSegment](#ispathsegment)
+-   [isReference](#isreference)
+-   [PathSegment](#pathsegment)
+-   [resolveReference](#resolvereference)
+-   [smartDereference](#smartdereference)
+-   [storeHasReference](#storehasreference)
 
 ## createPath
 
@@ -178,94 +45,6 @@ createPath({}, 9);
 -   Throws **[Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)** if something besides a PathSegment is passed
 
 Returns **[ImmutablePath](#immutablepath)** 
-
-## resolveReference
-
-Returns a new [ImmutableStore](#immutablestore) with `value` at `reference`
-
-**Parameters**
-
--   `store` **[ImmutableStore](#immutablestore)** 
--   `reference` **[ImmutableReference](#immutablereference)** Reference where the value should be placed
--   `value` **any** The value to place in the store
-
-**Examples**
-
-```javascript
-import { Map } from 'immutable';
-import createReference from 'referencejs/immutable/createReference';
-import resolveReference from 'referencejs/immutable/resolveReference';
-import dereference from 'referencejs/immutable/dereference';
-
-const user = Map({
- name: "john"
-});
-const userReference = createReference('auth', 'users', 'user_1');
-
-let store = Map();
-store = resolveReference(store, userReference, user);
-dereference(store, userReference) === user;
-```
-
-Returns **[ImmutableStore](#immutablestore)** An [ImmutableStore](#immutablestore) containing `value` at `reference`
-
-## dereference
-
-retrieves a value at a reference from a store
-
-**Parameters**
-
--   `store` **[ImmutableStore](#immutablestore)** 
--   `reference` **[ImmutableReference](#immutablereference)** 
-
-**Examples**
-
-```javascript
-import { fromJS } from 'immutable';
-import createReference from 'referencejs/immutable/createReference';
-import dereference from 'referencejs/immutable/dereference';
-
-const user = fromJS({
- name: "john"
-});
-const userReference = createReference('auth', 'users', 'user_1');
-const store = fromJS({
-  auth: {
-    users: {
-      user_1: user
-    }
-  }
-});
-dereference(store, userReference) === user;
-```
-
-Returns **any** The value at `reference` or [EmptyRefrence](EmptyRefrence) if value is not present
-
-## ImmutablePath
-
-A non-empty [List](List) of strings and non-negative integers (indeces).
-They describe how to traverse an Immutable object to retrieve a value.
-You should always use [createPath](#createpath). This validates the ImmutablePath,
-future-proofs your code, and lets you switch from Plain to Immutable by
-changing an import path.
-
-Type: List&lt;[PathSegment](#pathsegment)>
-
-**Examples**
-
-```javascript
-import { fromJS, List } from 'immutable';
-const store = fromJS({
-  auth: {
-    users: [
-      {
-        name: 'Jon'
-      }
-    ]
-  }
-});
-const path = List(['auth', 'users', 0, 'name']);
-```
 
 ## createReference
 
@@ -300,6 +79,90 @@ createReference(List(['baz', 0]));
 
 Returns **[ImmutableReference](#immutablereference)** 
 
+## dereference
+
+retrieves a value at a reference from a store
+
+**Parameters**
+
+-   `store` **[ImmutableStore](#immutablestore)** 
+-   `reference` **[ImmutableReference](#immutablereference)** 
+
+**Examples**
+
+```javascript
+import { fromJS } from 'immutable';
+import createReference from 'referencejs/immutable/createReference';
+import dereference from 'referencejs/immutable/dereference';
+
+const user = fromJS({
+ name: "john"
+});
+const userReference = createReference('auth', 'users', 'user_1');
+const store = fromJS({
+  auth: {
+    users: {
+      user_1: user
+    }
+  }
+});
+dereference(store, userReference) === user;
+```
+
+Returns **any** The value at `reference` or [EmptyRefrence](EmptyRefrence) if value is not present
+
+## EmptyReference
+
+A [Symbol](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol) returned when a [Reference](Reference) or [ImmutableReference](#immutablereference)
+is not present in [Store](Store) or [ImmutableStore](#immutablestore)
+
+**Examples**
+
+```javascript
+import createReference from 'referencejs/plain/createReference';
+import dereference from 'referencejs/plain/dereference';
+
+const store = {};
+const reference = createReference('nothing', 'here');
+dereference(store, reference) === EmptyReference
+```
+
+```javascript
+import { Map } from 'immutable';
+import createReference from 'referencejs/immutable/createReference';
+import dereference from 'referencejs/immutable/dereference';
+
+const store = Map();
+const reference = createReference('nothing', 'here');
+dereference(store, reference) === EmptyReference
+```
+
+## ImmutablePath
+
+A non-empty List of strings and non-negative integers (indeces).
+They describe how to traverse an Immutable object to retrieve a value.
+You should always use [createPath](#createpath). This validates the ImmutablePath,
+future-proofs your code, and lets you switch from Plain to Immutable by
+changing an import path.
+
+Type: List&lt;[PathSegment](#pathsegment)>
+
+**Examples**
+
+```javascript
+import { fromJS, List } from 'immutable';
+const store = fromJS({
+  auth: {
+    users: [
+      {
+        name: 'Jon'
+      }
+    ]
+  }
+});
+const path = List(['auth', 'users', 0, 'name']);
+```
+
 ## ImmutableReference
 
 A wrapper around at [ImmutablePath](#immutablepath). You should always use [createReference](#createreference).
@@ -326,6 +189,131 @@ const reference = Reference({
   path: List(['auth', 'users', 0, 'name'])
 });
 ```
+
+## ImmutableStore
+
+A [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map)
+
+Type: [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String), any>
+
+**Examples**
+
+```javascript
+import { fromJS } from 'immutable';
+const store = fromJS({
+  foo: [{
+    bar: 'hi'
+  }]
+});
+```
+
+## isPath
+
+tests whether the argument is a [ImmutablePath](#immutablepath)
+
+**Parameters**
+
+-   `maybePath`  
+-   `path`  
+
+**Examples**
+
+```javascript
+import { List } from 'immutable';
+import isPath from 'referencejs/immutable/isPath';
+
+isPath(List(['foo', 0])) === true;
+isPath(['foo', 0]) === false;
+isPath(List(['', -10])) === false;
+```
+
+Returns **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
+
+## isPathSegment
+
+Tests whether the given argument is a [PathSegment](#pathsegment)
+
+**Parameters**
+
+-   `maybePathSegment` **any** 
+
+**Examples**
+
+```javascript
+import isPathSegment from 'referencejs/isPathSegment';
+isPathSegment('users') === true
+isPathSegment(5) === true
+isPathSegment({}) === false
+```
+
+Returns **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
+
+## isReference
+
+Tests whether the argument is an [ImmutableReference](#immutablereference).
+[ImmutableReference](#immutablereference) is typed as a [Record](Record), however the only requirement
+is that it is an Immutable object where `get('path')` returns an [ImmutablePath](#immutablepath).
+
+**Parameters**
+
+-   `maybeReference`  
+-   `reference` **any** 
+
+**Examples**
+
+```javascript
+import isReference from 'referencejs/immutable/isReference';
+import createReference from 'referencejs/immutable/createReference';
+
+isReference(createReference('foo')) === true;
+isReference({}) === false;
+isReference(null) === false;
+```
+
+Returns **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
+
+## PathSegment
+
+a non-empty string, or a non-negative integer (index)
+
+Type: ([string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) \| [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number))
+
+**Examples**
+
+```javascript
+const pathSegmentString = 'hi';
+const PathSegmentInt = 0;
+```
+
+## resolveReference
+
+Returns a new [ImmutableStore](#immutablestore) with `value` at `reference`
+
+**Parameters**
+
+-   `store` **[ImmutableStore](#immutablestore)** 
+-   `reference` **[ImmutableReference](#immutablereference)** Reference where the value should be placed
+-   `value` **any** The value to place in the store
+
+**Examples**
+
+```javascript
+import { Map } from 'immutable';
+import createReference from 'referencejs/immutable/createReference';
+import resolveReference from 'referencejs/immutable/resolveReference';
+import dereference from 'referencejs/immutable/dereference';
+
+const user = Map({
+ name: "john"
+});
+const userReference = createReference('auth', 'users', 'user_1');
+
+let store = Map();
+store = resolveReference(store, userReference, user);
+dereference(store, userReference) === user;
+```
+
+Returns **[ImmutableStore](#immutablestore)** An [ImmutableStore](#immutablestore) containing `value` at `reference`
 
 ## smartDereference
 
@@ -401,19 +389,31 @@ const dereferencedRelations = smartDereference(store, relations);
 
 Returns **any** A new immutable object with all references dereferenced
 
-## ImmutableStore
+## storeHasReference
 
-A [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map)
+Test if [ImmutableReference](#immutablereference) is set in [ImmutableStore](#immutablestore).
 
-Type: [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String), any>
+**Parameters**
+
+-   `store` **[ImmutableStore](#immutablestore)** 
+-   `reference` **[ImmutableReference](#immutablereference)** 
 
 **Examples**
 
 ```javascript
-import { fromJS } from 'immutable';
-const store = fromJS({
-  foo: [{
-    bar: 'hi'
-  }]
+import { Map } from 'immutable';
+import storehasReference from 'referencejs/immutable/storehasReference';
+import createReference from 'referencejs/immutable/createReference';
+
+const store = Map({
+  foo: 5,
 });
+
+const reference = createReference('foo');
+const emptyRefrence = createReference('bar');
+
+storehasReference(store, foo) === true;
+storehasReference(store, emptyRefrence) === false;
 ```
+
+Returns **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 

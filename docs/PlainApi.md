@@ -6,16 +6,16 @@
 -   [createReference](#createreference)
 -   [dereference](#dereference)
 -   [EmptyReference](#emptyreference)
--   [isPathSegment](#ispathsegment)
 -   [isPath](#ispath)
+-   [isPathSegment](#ispathsegment)
 -   [isReference](#isreference)
+-   [Path](#path)
+-   [PathSegment](#pathsegment)
+-   [Reference](#reference)
 -   [resolveReference](#resolvereference)
 -   [smartDereference](#smartdereference)
--   [storehasReference](#storehasreference)
--   [PathSegment](#pathsegment)
--   [Path](#path)
--   [Reference](#reference)
 -   [Store](#store)
+-   [storehasReference](#storehasreference)
 
 ## createPath
 
@@ -130,25 +130,6 @@ const reference = createReference('nothing', 'here');
 dereference(store, reference) === EmptyReference
 ```
 
-## isPathSegment
-
-Tests whether the given argument is a [PathSegment](#pathsegment)
-
-**Parameters**
-
--   `maybePathSegment` **any** 
-
-**Examples**
-
-```javascript
-import isPathSegment from 'referencejs/isPathSegment';
-isPathSegment('users') === true
-isPathSegment(5) === true
-isPathSegment({}) === false
-```
-
-Returns **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
-
 ## isPath
 
 tests whether the argument is a [Path](#path)
@@ -167,6 +148,25 @@ isPath(['', -10]) === false;
 ```
 
 Returns **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
+
+## isPathSegment
+
+Tests whether the given argument is a [PathSegment](#pathsegment)
+
+**Parameters**
+
+-   `maybePathSegment` **any** 
+
+**Examples**
+
+```javascript
+import isPathSegment from 'referencejs/isPathSegment';
+isPathSegment('users') === true
+isPathSegment(5) === true
+isPathSegment({}) === false
+```
+
+Returns **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
 
 ## isReference
 
@@ -188,6 +188,69 @@ isReference(null) === false;
 ```
 
 Returns **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
+
+## Path
+
+A non-empty array of strings and non-negative integers (indeces).
+They describe how to traverse a JS object to retrieve a value.
+You should always use [createPath](#createpath). This validates the Path,
+future-proofs your code, and lets you switch from Plain to Immutable by
+changing an import path.
+
+Type: [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[PathSegment](#pathsegment)>
+
+**Examples**
+
+```javascript
+const store = {
+  auth: {
+    users: [
+      {
+        name: 'Jon'
+      }
+    ]
+  }
+}
+const path = ['auth', 'users', 0, 'name'];
+```
+
+## PathSegment
+
+a non-empty string, or a non-negative integer
+
+Type: ([string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) \| [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number))
+
+**Examples**
+
+```javascript
+const pathSegmentString = 'hi';
+const PathSegmentInt = 0;
+```
+
+## Reference
+
+A wrapper around at [Path](#path). You should always use [createReference](#createreference).
+This validates the Reference, future-proofs your code, and lets you switch
+from Plain to Immutable by changing an import path.
+
+Type: {path: [Path](#path)}
+
+**Examples**
+
+```javascript
+const store = {
+  auth: {
+    users: [
+      {
+        name: 'Jon'
+      }
+    ]
+  }
+}
+const reference = {
+  path: ['auth', 'users', 0, 'name']
+}
+```
 
 ## resolveReference
 
@@ -293,6 +356,22 @@ const dereferencedRelations = smartDereference(store, relations);
 
 Returns **any** A new object with all references dereferenced
 
+## Store
+
+A plain JS object
+
+Type: {}
+
+**Examples**
+
+```javascript
+const store = {
+  foo: [{
+    bar: 'hi'
+  }]
+};
+```
+
 ## storehasReference
 
 Test if [Reference](#reference) is set in [Store](#store).
@@ -320,82 +399,3 @@ storehasReference(store, emptyRefrence) === false;
 ```
 
 Returns **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
-
-## PathSegment
-
-a non-empty string, or a non-negative integer
-
-Type: ([string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) \| [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number))
-
-**Examples**
-
-```javascript
-const pathSegmentString = 'hi';
-const PathSegmentInt = 0;
-```
-
-## Path
-
-A non-empty array of strings and non-negative integers (indeces).
-They describe how to traverse a JS object to retrieve a value.
-You should always use [createPath](#createpath). This validates the Path,
-future-proofs your code, and lets you switch from Plain to Immutable by
-changing an import path.
-
-Type: [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[PathSegment](#pathsegment)>
-
-**Examples**
-
-```javascript
-const store = {
-  auth: {
-    users: [
-      {
-        name: 'Jon'
-      }
-    ]
-  }
-}
-const path = ['auth', 'users', 0, 'name'];
-```
-
-## Reference
-
-A wrapper around at [Path](#path). You should always use [createReference](#createreference).
-This validates the Reference, future-proofs your code, and lets you switch
-from Plain to Immutable by changing an import path.
-
-Type: {path: [Path](#path)}
-
-**Examples**
-
-```javascript
-const store = {
-  auth: {
-    users: [
-      {
-        name: 'Jon'
-      }
-    ]
-  }
-}
-const reference = {
-  path: ['auth', 'users', 0, 'name']
-}
-```
-
-## Store
-
-A plain JS object
-
-Type: {}
-
-**Examples**
-
-```javascript
-const store = {
-  foo: [{
-    bar: 'hi'
-  }]
-};
-```
