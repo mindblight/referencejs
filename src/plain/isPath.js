@@ -1,5 +1,5 @@
 // @flow
-import isPathSegment from './isPathSegment';
+import isPathSegment from '../isPathSegment';
 import isArrayLikeObject from 'lodash/isArrayLikeObject';
 
 export default function isPath(path :*) :boolean {

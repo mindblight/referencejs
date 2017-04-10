@@ -3,45 +3,35 @@
 ### Table of Contents
 
 -   [PathSegment](#pathsegment)
--   [ImmutablePath](#immutablepath)
 -   [isImmutable](#isimmutable)
+-   [ImmutablePath](#immutablepath)
+-   [isPath](#ispath)
 -   [isReference](#isreference)
 -   [ImmutableReference](#immutablereference)
--   [isPath](#ispath)
 -   [dereference](#dereference)
 -   [ImmutableStore](#immutablestore)
 -   [storeHasReference](#storehasreference)
 -   [FirstArg](#firstarg)
--   [createReference](#createreference)
 -   [smartDereference](#smartdereference)
 -   [resolveReference](#resolvereference)
+-   [createReference](#createreference)
 -   [createPath](#createpath)
 
 ## PathSegment
 
 Type: ([string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) \| [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number))
 
-## ImmutablePath
-
-Type: Iterable&lt;[PathSegment](#pathsegment)>
-
 ## isImmutable
 
 **Parameters**
 
--   `obj`  
-
-## isReference
-
-**Parameters**
-
--   `reference`  
+-   `obj` **any** 
 
 Returns **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
 
-## ImmutableReference
+## ImmutablePath
 
-Type: [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String), [ImmutablePath](#immutablepath)>
+Type: List&lt;[PathSegment](#pathsegment)>
 
 ## isPath
 
@@ -49,12 +39,26 @@ Type: [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Gl
 
 -   `path`  
 
+Returns **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
+
+## isReference
+
+**Parameters**
+
+-   `reference` **any** 
+
+Returns **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
+
+## ImmutableReference
+
+Type: Record&lt;{path: [ImmutablePath](#immutablepath)}>
+
 ## dereference
 
 **Parameters**
 
--   `store` **Store** 
--   `reference` **Reference** 
+-   `store` **[ImmutableStore](#immutablestore)** 
+-   `reference` **[ImmutableReference](#immutablereference)** 
 
 Returns **any** 
 
@@ -66,27 +70,20 @@ Type: [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Gl
 
 **Parameters**
 
--   `store` **Store** 
--   `reference` **Reference** 
+-   `store` **[ImmutableStore](#immutablestore)** 
+-   `reference` **[ImmutableReference](#immutablereference)** 
+
+Returns **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
 
 ## FirstArg
 
 Type: (FirstArgPlain | List&lt;[PathSegment](#pathsegment)>)
 
-## createReference
-
-**Parameters**
-
--   `firstArg` **[FirstArg](#firstarg)** 
--   `pathSegments` **...[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[PathSegment](#pathsegment)>** 
-
-Returns **Reference** 
-
 ## smartDereference
 
 **Parameters**
 
--   `store` **Store** 
+-   `store` **[ImmutableStore](#immutablestore)** 
 -   `val`  
 
 Returns **any** 
@@ -95,11 +92,20 @@ Returns **any**
 
 **Parameters**
 
--   `store` **Store** 
--   `reference` **Reference** 
+-   `store` **[ImmutableStore](#immutablestore)** 
+-   `reference` **[ImmutableReference](#immutablereference)** 
 -   `value`  
 
-Returns **Store** 
+Returns **[ImmutableStore](#immutablestore)** 
+
+## createReference
+
+**Parameters**
+
+-   `firstArg` **[FirstArg](#firstarg)** 
+-   `pathSegments` **...[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[PathSegment](#pathsegment)>** 
+
+Returns **[ImmutableReference](#immutablereference)** 
 
 ## createPath
 
@@ -114,4 +120,4 @@ e.g.
 -   `firstArg` **[FirstArg](#firstarg)** 
 -   `pathSegments` **...[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[PathSegment](#pathsegment)>** 
 
-Returns **Path** 
+Returns **[ImmutablePath](#immutablepath)** 

@@ -3,8 +3,8 @@ import { expect } from 'chai';
 import { List } from 'immutable';
 import './applyChaiPlugins';
 
-import createPathPlain from '../src/createPath';
-import isPathPlain from '../src/isPath';
+import createPathPlain from '../src/plain/createPath';
+import isPathPlain from '../src/plain/isPath';
 import createPathImmutable from '../src/immutable/createPath';
 import isPathImmutable from '../src/immutable/isPath';
 
