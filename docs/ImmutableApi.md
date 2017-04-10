@@ -82,6 +82,15 @@ tests whether the argument is a [Path](Path)
 
 -   `maybePath` **any** 
 
+**Examples**
+
+```javascript
+import isPath from 'referencejs/plain/isPath';
+
+isPath(['foo', 0]) === true;
+isPath(['', -10]) === false;
+```
+
 Returns **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
 
 ## isPath
@@ -92,6 +101,17 @@ tests whether the argument is a [ImmutablePath](#immutablepath)
 
 -   `maybePath`  
 -   `path`  
+
+**Examples**
+
+```javascript
+import { List } from 'immutable';
+import isPath from 'referencejs/immutable/isPath';
+
+isPath(List(['foo', 0])) === true;
+isPath(['foo', 0]) === false;
+isPath(List(['', -10])) === false;
+```
 
 Returns **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
 
@@ -201,6 +221,17 @@ is that it is an Immutable object where `get('path')` returns an [ImmutablePath]
 
 -   `maybeReference`  
 -   `reference` **any** 
+
+**Examples**
+
+```javascript
+import isReference from 'referencejs/immutable/isReference';
+import createReference from 'referencejs/immutable/createReference';
+
+isReference(createReference('foo')) === true;
+isReference({}) === false;
+isReference(null) === false;
+```
 
 Returns **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
 

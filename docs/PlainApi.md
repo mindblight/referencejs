@@ -6,8 +6,8 @@
 -   [createReference](#createreference)
 -   [dereference](#dereference)
 -   [EmptyReference](#emptyreference)
--   [isPath](#ispath)
 -   [isPathSegment](#ispathsegment)
+-   [isPath](#ispath)
 -   [isReference](#isreference)
 -   [resolveReference](#resolvereference)
 -   [smartDereference](#smartdereference)
@@ -116,16 +116,6 @@ const reference = createReference('nothing', 'here');
 dereference(store, reference) == EmptyReference
 ```
 
-## isPath
-
-tests whether the argument is a [Path](#path)
-
-**Parameters**
-
--   `maybePath` **any** 
-
-Returns **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
-
 ## isPathSegment
 
 Tests whether the given argument is a valid PathSegment
@@ -145,6 +135,25 @@ isPathSegment({}) === false
 
 Returns **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
 
+## isPath
+
+tests whether the argument is a [Path](#path)
+
+**Parameters**
+
+-   `maybePath` **any** 
+
+**Examples**
+
+```javascript
+import isPath from 'referencejs/plain/isPath';
+
+isPath(['foo', 0]) === true;
+isPath(['', -10]) === false;
+```
+
+Returns **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
+
 ## isReference
 
 Tests whether the argument is a [Reference](#reference).
@@ -152,6 +161,17 @@ Tests whether the argument is a [Reference](#reference).
 **Parameters**
 
 -   `maybeReference` **any** 
+
+**Examples**
+
+```javascript
+import isReference from 'referencejs/plain/isReference';
+import createReference from 'referencejs/plain/createReference';
+
+isReference(createReference('foo')) === true;
+isReference({}) === false;
+isReference(null) === false;
+```
 
 Returns **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
 
