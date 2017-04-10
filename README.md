@@ -1,11 +1,10 @@
 # Referencejs [![Build Status](https://travis-ci.org/mindblight/referencejs.svg?branch=master)](https://travis-ci.org/mindblight/referencejs)
 
-Reference JS lets you create references to any location in a JSON tree.
-This is useful for
+Referencejs manages references to values in plain JS or [Immmutable](https://facebook.github.io/immutable-js/) objects. You can use this to:
 
-1. For normalizing and denormalizing data without needing an explicit schema
-2. For referencing data that doesn't yet exist in the store (e.g. async data)
-3. For normalizing and denormalizing immutable data
+1. Easily manage complex denormalized, without needing an explicited schema
+3. referencing data that doesn't exist yet (e.g. async data)
+4. normalize and denormalize immutable data
 
 ## A Basic Example
 
@@ -19,7 +18,7 @@ This is useful for
       id: 'abc',
       name: 'John Doe'
     };
-    const reference = createReference(['users', user.id]);
+    const reference = createReference('users', user.id);
 
     let store = {};
     store = resolveReference(store, reference, user);
@@ -68,8 +67,9 @@ significantly from your store
     // familyTree will contain the user objects instead of the references  
     const familyTree = smartDereference(store, familyTree);
 
-## Full API
-Read full [API](docs/api.md) docs.
+## Plain vs. Immutable
+Referencejs implements the same API for both Plain JS and [Immmutable](https://facebook.github.io/immutable-js/) objects.
+Read full [API](docs/README.md) docs.
 
 ## What's a Reference?
 A reference is an object that contains everything needed to find a value in a JSON object (called the store).
