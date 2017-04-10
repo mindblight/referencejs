@@ -8,64 +8,68 @@ Referencejs manages references to values in plain JS or [Immmutable](https://fac
 
 ## A Basic Example
 
-    import {
-      createReference,
-      resolveReference,
-      dereference,
-    } from 'referencejs';
+```js
+import {
+  createReference,
+  resolveReference,
+  dereference,
+} from 'referencejs';
 
-    const user = {
-      id: 'abc',
-      name: 'John Doe'
-    };
-    const reference = createReference('users', user.id);
+const user = {
+  id: 'abc',
+  name: 'John Doe'
+};
+const reference = createReference('users', user.id);
 
-    let store = {};
-    store = resolveReference(store, reference, user);
+let store = {};
+store = resolveReference(store, reference, user);
 
-    dereference(store, reference) === user;
+dereference(store, reference) === user;
+```
 
 ## dereferencing using `smartDereference`
 Dereferencing one reference at a time isn't that useful. `smartDereference` dereferences
 every reference in an object. This is useful if you have data structures that differ
 significantly from your store
 
-    import {
-      createReference,
-      smartDereference,
-    } from 'referencejs';
+```js
+import {
+  createReference,
+  smartDereference,
+} from 'referencejs';
 
-    const store = {
-      users: {
-        user1: {
-          name: 'John Doe'
-        },
-        user2: {
-          name: 'Jane Doe'
-        },
-        user3: {
-          name: 'Billy Doe'
-        },
+const store = {
+  users: {
+    user1: {
+      name: 'John Doe'
+    },
+    user2: {
+      name: 'Jane Doe'
+    },
+    user3: {
+      name: 'Billy Doe'
+    },
 
-        user4: {
-          name: 'Lucy Doe'
-        }
-      }
-    };
+    user4: {
+      name: 'Lucy Doe'
+    }
+  }
+};
 
-    const john = createReference(['users', 'user1']);
-    const jane = createReference(['users', 'user2']);
-    const billy = createReference(['users', 'user3']);
-    const lucy = createReference(['users', 'user4']);
+const john = createReference(['users', 'user1']);
+const jane = createReference(['users', 'user2']);
+const billy = createReference(['users', 'user3']);
+const lucy = createReference(['users', 'user4']);
 
-    const familyTreeReferences = {
-      father: john,
-      mother: jane,
-      children: [billy, lucy]
-    };
+const familyTreeReferences = {
+  father: john,
+  mother: jane,
+  children: [billy, lucy]
+};
 
-    // familyTree will contain the user objects instead of the references  
-    const familyTree = smartDereference(store, familyTree);
+// familyTree will contain the user objects instead of the references  
+const familyTree = smartDereference(store, familyTree);
+```
 
 ## Plain vs. Immutable
 Referencejs implements the same API for both Plain JS and [Immmutable](https://facebook.github.io/immutable-js/) objects.
