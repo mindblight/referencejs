@@ -6,8 +6,8 @@
 -   [createReference](#createreference)
 -   [dereference](#dereference)
 -   [EmptyReference](#emptyreference)
--   [isPathSegment](#ispathsegment)
 -   [isPath](#ispath)
+-   [isPathSegment](#ispathsegment)
 -   [isReference](#isreference)
 -   [resolveReference](#resolvereference)
 -   [smartDereference](#smartdereference)
@@ -114,6 +114,16 @@ const reference = createReference('nothing', 'here');
 dereference(store, reference) == EmptyReference
 ```
 
+## isPath
+
+tests whether the argument is a [Path](#path) or not
+
+**Parameters**
+
+-   `maybePath` **any** 
+
+Returns **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
+
 ## isPathSegment
 
 Tests whether the given argument is a valid PathSegment
@@ -132,16 +142,6 @@ isPathSegment({}) === false
 ```
 
 Returns **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
-
-## isPath
-
-tests whether the argument is a [Path](#path) or not
-
-**Parameters**
-
--   `maybePath` **any** 
-
-Returns **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
 
 ## isReference
 
@@ -272,6 +272,12 @@ Type: ([string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Referenc
 
 ## Path
 
+A non-empty array of strings and non-negative integers (indeces).
+They describe how to traverse a JS object to retrieve a value.
+You should always use [createPath](#createpath). This validates the Path,
+future-proofs your code, and lets you switch from Plain to Immutable by
+changing an import path.
+
 Type: [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[PathSegment](#pathsegment)>
 
 **Examples**
@@ -289,16 +295,11 @@ const store = {
 const path = ['auth', 'users', 0, 'name'];
 ```
 
-**Meta**
-
--   **since**: 0.1.0
-    A non-empty array of strings and non-negative integers (indeces).
-    They describe how to traverse a JS object to retrieve a value.
-    You should always use {@link createPath}. This validates the Path,
-    future-proofs your code, and lets you switch from Plain to Immutable by
-    changing an import path.
-
 ## Reference
+
+A wrapper around at [Path](#path). You should always use [createReference](#createreference).
+This validates the Reference, future-proofs your code, and lets you switch
+from Plain to Immutable by changing an import path.
 
 Type: {path: [Path](#path)}
 
@@ -318,13 +319,6 @@ const reference = {
   path: ['auth', 'users', 0, 'name']
 }
 ```
-
-**Meta**
-
--   **since**: 0.1.0
-    A wrapper around at {@link Path}. You should always use {@link createReference}.
-    This validates the Reference, future-proofs your code, and lets you switch
-    from Plain to Immutable by changing an import path.
 
 ## Store
 
