@@ -7,11 +7,11 @@ import isReference from './isReference';
 import type { Store, Reference } from './typings';
 
 /**
- * Returns a new {@link Store} with {@param value} at {@param reference}
+ * Returns a new {@link Store} with `value` at `reference`
  * @param  store
  * @param  reference      Reference where the value should be placed
  * @param  {any} value    The value to place in the store
- * @return                A new {@link Store} containing {@param value} at {@param reference}
+ * @return                A new {@link Store} containing `value` at `reference`
  *
  * @example
  * import createReference from 'referencejs/plain/createReference';
@@ -25,7 +25,7 @@ import type { Store, Reference } from './typings';
  *
  * let store = {};
  * store = resolveReference(store, userReference, user);
- * dereference(userReference) === user;
+ * dereference(store, userReference) === user;
  */
 export default function resolveReference(store :Store, reference :Reference, value :*) :Store {
   if (isNill(store)) {

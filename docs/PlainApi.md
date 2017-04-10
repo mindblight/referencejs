@@ -19,11 +19,11 @@
 
 ## createPath
 
-Create a reference path from _either_ an array of PathSegments, or multiple PathSegment arguments
+Create a reference path from _either_ an array of [PathSegment](#pathsegment)s, or multiple [PathSegment](#pathsegment) arguments
 
 **Parameters**
 
--   `firstArg` **FirstArg** {PathSegment | PathSegment\[]} - an array of PathSegments, or a PathSegment
+-   `firstArg` **FirstArg** 
 -   `pathSegments` **...[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[PathSegment](#pathsegment)>** 
 
 **Examples**
@@ -45,12 +45,12 @@ Returns **[Path](#path)**
 
 ## createReference
 
-Creates a reference.
+Creates a [Reference](#reference).
 
 **Parameters**
 
--   `firstArg` **([PathSegment](#pathsegment) \| [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[PathSegment](#pathsegment)>)** anything accepted by createPath
 -   `pathSegments` **...[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[PathSegment](#pathsegment)>** 
+-   `firstArg` **FirstArg** 
 
 **Examples**
 
@@ -66,7 +66,7 @@ const store = {
 createReference('foo', 'bar');
 createReference(['foo', 'bar']);
 
-//create a reference to 'foo[0]'
+//create a reference to 'baz[0]'
 createReference('baz', 0);
 createReference(['baz', 0]);
 ```
@@ -99,26 +99,40 @@ const store = {
     }
   }
 };
-dereference(userReference) === user;
+dereference(store, userReference) === user;
 ```
 
-Returns **(any | EmptyRefrence)** 
+Returns **any** The value at `reference` or [EmptyRefrence](EmptyRefrence) if value is not present
 
 ## EmptyReference
 
-references can point to locations without a value.
+A [Symbol](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol) returned when a [Reference](#reference) or [ImmutableReference](ImmutableReference)
+is not present in [Store](#store) or [ImmutableStore](ImmutableStore)
 
 **Examples**
 
 ```javascript
+import createReference from 'referencejs/plain/createReference';
+import dereference from 'referencejs/plain/dereference';
+
 const store = {};
 const reference = createReference('nothing', 'here');
-dereference(store, reference) == EmptyReference
+dereference(store, reference) === EmptyReference
+```
+
+```javascript
+import { Map } from 'immutable';
+import createReference from 'referencejs/immutable/createReference';
+import dereference from 'referencejs/immutable/dereference';
+
+const store = Map();
+const reference = createReference('nothing', 'here');
+dereference(store, reference) === EmptyReference
 ```
 
 ## isPathSegment
 
-Tests whether the given argument is a valid PathSegment
+Tests whether the given argument is a [PathSegment](#pathsegment)
 
 **Parameters**
 
@@ -177,7 +191,7 @@ Returns **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refe
 
 ## resolveReference
 
-Returns a new [Store](#store) with {@param value} at {@param reference}
+Returns a new [Store](#store) with `value` at `reference`
 
 **Parameters**
 
@@ -199,21 +213,21 @@ const userReference = createReference('auth', 'users', 'user_1');
 
 let store = {};
 store = resolveReference(store, userReference, user);
-dereference(userReference) === user;
+dereference(store, userReference) === user;
 ```
 
-Returns **[Store](#store)** A new [Store](#store) containing {@param value} at {@param reference}
+Returns **[Store](#store)** A new [Store](#store) containing `value` at `reference`
 
 ## smartDereference
 
-Traverses {@param val} and dereferences every reference.
+Traverses `val` and dereferences every reference.
 
 **Parameters**
 
 -   `store` **[Store](#store)** 
 -   `val`  The object to scan. [Reference](#reference)s are dereferenced,
-                    all [ArrayLikeObjects]<https://lodash.com/docs/4.17.4#isArrayLikeObject> are iteratated,
-                    all [PlainObjects]<https://lodash.com/docs/4.17.4#isPlainObject> are traversed,
+                    all [ArrayLikeObjects](https://lodash.com/docs/4.17.4#isArrayLikeObject) are iteratated,
+                    all [PlainObjects](https://lodash.com/docs/4.17.4#isPlainObject) are traversed,
                     and everything else is returned unmodified.
 
 **Examples**

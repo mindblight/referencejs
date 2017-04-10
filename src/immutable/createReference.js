@@ -10,8 +10,8 @@ const Reference = Record({
 });
 
 /**
- * Creates a reference.
- * @param  {PathSegment | PathSegment[] | List<PathSegment>} firstArg anything accepted by createPath
+ * Creates an {@link ImmutableReference}
+ * @param  {PathSegment | PathSegment[] | List<PathSegment>}
  * @param  pathSegments
  * @return
  *
@@ -29,7 +29,7 @@ const Reference = Record({
  * createReference(['foo', 'bar']);
  * createReference(List(['foo', 'bar']));
  *
- * //create a reference to 'foo[0]'
+ * //create a reference to 'baz[0]'
  * createReference('baz', 0);
  * createReference(['baz', 0]);
  * createReference(List(['baz', 0]));

@@ -3,7 +3,7 @@ import isString from 'lodash/isString';
 import isInteger from 'lodash/isInteger';
 
 /**
- * Tests whether the given argument is a valid PathSegment
+ * Tests whether the given argument is a {@link PathSegment}
  * @param  {any} maybePathSegment
  * @return {boolean}
  *

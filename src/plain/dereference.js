@@ -11,7 +11,7 @@ import type { Store, Reference } from './typings';
  * retrieves a value at a reference from a store
  * @param  store
  * @param  reference
- * @return {any | EmptyRefrence}
+ * @return The value at `reference` or {@link EmptyRefrence} if value is not present
  * @example
  * import createReference from 'referencejs/plain/createReference';
  * import dereference from 'referencejs/plain/dereference';
@@ -27,7 +27,7 @@ import type { Store, Reference } from './typings';
  *     }
  *   }
  * };
- * dereference(userReference) === user;
+ * dereference(store, userReference) === user;
  */
 export default function dereference(store :Store, reference :Reference) :any {
   if (isNil(store)) {

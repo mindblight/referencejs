@@ -9,11 +9,11 @@ import dereference from './dereference';
 import type { Store } from './typings';
 
 /**
- * Traverses {@param val} and dereferences every reference.
+ * Traverses `val` and dereferences every reference.
  * @param  store
  * @param  val    The object to scan. {@link Reference}s are dereferenced,
-*                 all [ArrayLikeObjects]{@link https://lodash.com/docs/4.17.4#isArrayLikeObject} are iteratated,
-*                 all [PlainObjects]{@link https://lodash.com/docs/4.17.4#isPlainObject} are traversed,
+*                 all {@link https://lodash.com/docs/4.17.4#isArrayLikeObject|ArrayLikeObjects} are iteratated,
+*                 all {@link https://lodash.com/docs/4.17.4#isPlainObject|PlainObjects} are traversed,
 *                 and everything else is returned unmodified.
  * @return        A new object with all references dereferenced
  *

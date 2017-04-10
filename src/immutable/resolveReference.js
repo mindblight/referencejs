@@ -7,11 +7,11 @@ import isReference from './isReference';
 import type { ImmutableStore, ImmutableReference, ImmutablePath, PathSegment } from './typings';
 
 /**
- * Returns a new {@link ImmutableStore} with {@param value} at {@param reference}
+ * Returns a new {@link ImmutableStore} with `value` at `reference`
  * @param  store
  * @param  reference      Reference where the value should be placed
  * @param  {any} value    The value to place in the store
- * @return                An {@link ImmutableStore} containing {@param value} at {@param reference}
+ * @return                An {@link ImmutableStore} containing `value` at `reference`
  *
  * @example
  * import { Map } from 'immutable';
@@ -26,7 +26,7 @@ import type { ImmutableStore, ImmutableReference, ImmutablePath, PathSegment } f
  *
  * let store = Map();
  * store = resolveReference(store, userReference, user);
- * dereference(userReference) === user;
+ * dereference(store, userReference) === user;
  */
 export default function resolveReference(store :ImmutableStore, reference :ImmutableReference, value :*) :ImmutableStore {
   if (isNill(store)) {

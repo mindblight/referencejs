@@ -4,8 +4,8 @@ import type { FirstArg } from './createPath';
 import createPath from './createPath';
 
 /**
- * Creates a reference.
- * @param  {PathSegment | PathSegment[]} firstArg anything accepted by createPath
+ * Creates a {@link Reference}.
+ * @param  {PathSegment | PathSegment[]}
  * @param  pathSegments
  * @return
  *
@@ -21,7 +21,7 @@ import createPath from './createPath';
  * createReference('foo', 'bar');
  * createReference(['foo', 'bar']);
  *
- * //create a reference to 'foo[0]'
+ * //create a reference to 'baz[0]'
  * createReference('baz', 0);
  * createReference(['baz', 0]);
  */
