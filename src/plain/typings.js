@@ -1,7 +1,12 @@
 // @flow
-/** a non-empty string, or a non-negative integer >= 0
+/**
+ * a non-empty string, or a non-negative integer
+ * @example
+ * const pathSegmentString = 'hi';
+ * const PathSegmentInt = 0;
  */
 export type PathSegment = string | number;
+
 /**
  * A non-empty array of strings and non-negative integers (indeces).
  * They describe how to traverse a JS object to retrieve a value.
@@ -45,6 +50,13 @@ export type Reference = {
   path :Path,
 };
 /**
- *
+ * A plain JS object
+ * @type { [key :string] :any }
+ * @example
+ * const store = {
+ *   foo: [{
+ *     bar: 'hi'
+ *   }]
+ * };
  */
-export type Store = { [key :string] :* };
+export type Store = { [key :string] :any };

@@ -12,14 +12,16 @@ export type FirstArg = PathSegment | PathSegment[];
  * @param firstArg {PathSegment | PathSegment[]} - an array of PathSegments, or a PathSegment
  * @param ...pathSegments
  * @throws {Error} if both an array of PathSegments and multiple PathSegment arguments are passed
- * @throw {Error} if something besides a PathSegment is passed
+ * @throws {Error} if something besides a PathSegment is passed
+ *
  * @example
- *    import createPath from 'referencejs/plain/createPath';
- *    createPath(['foo', 'bar']);
- *    createPath('foo', 'bar');
- *    // Throws an error
- *    createPath(['foo'], 'bar')
- *    createPath({}, 9)
+ * import createPath from 'referencejs/plain/createPath';
+ * createPath(['foo', 'bar']);
+ * createPath('foo', 'bar');
+ *
+ * // Throws an error
+ * createPath(['foo'], 'bar')
+ * createPath({}, 9);
  */
 export default function createPath(firstArg :FirstArg, ...pathSegments :PathSegment[]) :Path {
   let path :Path;

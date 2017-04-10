@@ -11,7 +11,7 @@ import type { Store, Reference } from './typings';
  * @param  store
  * @param  reference      Reference where the value should be placed
  * @param  {any} value    The value to place in the store
- * @return                A new store containing {@param value} at {@param reference}
+ * @return                A new {@link Store} containing {@param value} at {@param reference}
  *
  * @example
  * import createReference from 'referencejs/plain/createReference';

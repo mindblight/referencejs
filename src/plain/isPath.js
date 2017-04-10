@@ -3,7 +3,7 @@ import isPathSegment from '../isPathSegment';
 import isArrayLikeObject from 'lodash/isArrayLikeObject';
 
 /**
- * tests whether the argument is a {@link Path} or not
+ * tests whether the argument is a {@link Path}
  * @param   maybePath
  * @return {Boolean}
  */

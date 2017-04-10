@@ -2,7 +2,7 @@
 import isPath from './isPath';
 
 /**
- * Tests whether the argument is a reference.
+ * Tests whether the argument is a {@link Reference}.
  * @param maybeReference
  * @return
  */

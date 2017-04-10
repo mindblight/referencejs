@@ -30,14 +30,16 @@ Create a reference path from _either_ an array of PathSegments, or multiple Path
 
 ```javascript
 import createPath from 'referencejs/plain/createPath';
-   createPath(['foo', 'bar']);
-   createPath('foo', 'bar');
-   // Throws an error
-   createPath(['foo'], 'bar')
-   createPath({}, 9)
+createPath(['foo', 'bar']);
+createPath('foo', 'bar');
+
+// Throws an error
+createPath(['foo'], 'bar')
+createPath({}, 9);
 ```
 
 -   Throws **[Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)** if both an array of PathSegments and multiple PathSegment arguments are passed
+-   Throws **[Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)** if something besides a PathSegment is passed
 
 Returns **[Path](#path)** 
 
@@ -54,19 +56,19 @@ Creates a reference.
 
 ```javascript
 import createReference from 'referencejs/plain/createReference'
-   const store = {
-     foo: {
-       bar: 5
-     },
-     baz: ['hi']
-   }
-   // create a reference to 'foo.bar' in plain JS object
-   createReference('foo', 'bar');
-   createReference(['foo', 'bar']);
+const store = {
+  foo: {
+    bar: 5
+  },
+  baz: ['hi']
+}
+// create a reference to 'foo.bar' in plain JS object
+createReference('foo', 'bar');
+createReference(['foo', 'bar']);
 
-   //create a reference to 'foo[0]'
-   createReference('baz', 0);
-   createReference(['baz', 0]);
+//create a reference to 'foo[0]'
+createReference('baz', 0);
+createReference(['baz', 0]);
 ```
 
 Returns **[Reference](#reference)** 
@@ -116,7 +118,7 @@ dereference(store, reference) == EmptyReference
 
 ## isPath
 
-tests whether the argument is a [Path](#path) or not
+tests whether the argument is a [Path](#path)
 
 **Parameters**
 
@@ -145,7 +147,7 @@ Returns **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refe
 
 ## isReference
 
-Tests whether the argument is a reference.
+Tests whether the argument is a [Reference](#reference).
 
 **Parameters**
 
@@ -180,16 +182,19 @@ store = resolveReference(store, userReference, user);
 dereference(userReference) === user;
 ```
 
-Returns **[Store](#store)** A new store containing {@param value} at {@param reference}
+Returns **[Store](#store)** A new [Store](#store) containing {@param value} at {@param reference}
 
 ## smartDereference
 
-Returns a new object with every field dereferenced
+Traverses {@param val} and dereferences every reference.
 
 **Parameters**
 
 -   `store` **[Store](#store)** 
--   `val`  The object to traverse and dereference
+-   `val`  The object to scan. [Reference](#reference)s are dereferenced,
+                    all [ArrayLikeObjects]<https://lodash.com/docs/4.17.4#isArrayLikeObject> are iteratated,
+                    all [PlainObjects]<https://lodash.com/docs/4.17.4#isPlainObject> are traversed,
+                    and everything else is returned unmodified.
 
 **Examples**
 
@@ -248,6 +253,7 @@ const relations = [
     type: "father-in-law"
   },
 ];
+// 'from' and 'to' will be their respective user objects in the store
 const dereferencedRelations = smartDereference(store, relations);
 ```
 
@@ -255,20 +261,44 @@ Returns **any** A new object with all references dereferenced
 
 ## storehasReference
 
-Test if a reference is set in a store.
+Test if [Reference](#reference) is set in [Store](#store).
 
 **Parameters**
 
 -   `store` **[Store](#store)** 
 -   `reference` **[Reference](#reference)** 
 
-Returns **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** false if [dereference](#dereference) would return [EmptyRefrence](EmptyRefrence), otherwise true
+**Examples**
+
+```javascript
+import storehasReference from 'referencejs/plain/storehasReference';
+import createReference from 'referencejs/plain/createReference';
+
+const store = {
+  foo: 5,
+};
+
+const reference = createReference('foo');
+const emptyRefrence = createReference('bar');
+
+storehasReference(store, foo) === true;
+storehasReference(store, emptyRefrence) === false;
+```
+
+Returns **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
 
 ## PathSegment
 
-a non-empty string, or a non-negative integer >= 0
+a non-empty string, or a non-negative integer
 
 Type: ([string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) \| [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number))
+
+**Examples**
+
+```javascript
+const pathSegmentString = 'hi';
+const PathSegmentInt = 0;
+```
 
 ## Path
 
@@ -322,4 +352,16 @@ const reference = {
 
 ## Store
 
+A plain JS object
+
 Type: {}
+
+**Examples**
+
+```javascript
+const store = {
+  foo: [{
+    bar: 'hi'
+  }]
+};
+```

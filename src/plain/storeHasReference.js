@@ -6,10 +6,24 @@ import isReference from './isReference';
 import type { Store, Reference } from './typings';
 
 /**
- * Test if a reference is set in a store.
+ * Test if {@link Reference} is set in {@link Store}.
  * @param  store
  * @param  reference
- * @return {Boolean}           false if {@link dereference} would return {@link EmptyRefrence}, otherwise true
+ * @return {Boolean}
+ *
+ * @example
+ * import storehasReference from 'referencejs/plain/storehasReference';
+ * import createReference from 'referencejs/plain/createReference';
+ *
+ * const store = {
+ *   foo: 5,
+ * };
+ *
+ * const reference = createReference('foo');
+ * const emptyRefrence = createReference('bar');
+ *
+ * storehasReference(store, foo) === true;
+ * storehasReference(store, emptyRefrence) === false;
  */
 export default function storehasReference(store :Store, reference :Reference) {
   if (isNill(store)) {

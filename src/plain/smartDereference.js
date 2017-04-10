@@ -9,9 +9,12 @@ import dereference from './dereference';
 import type { Store } from './typings';
 
 /**
- * Returns a new object with every field dereferenced
+ * Traverses {@param val} and dereferences every reference.
  * @param  store
- * @param  val    The object to traverse and dereference
+ * @param  val    The object to scan. {@link Reference}s are dereferenced,
+*                 all [ArrayLikeObjects]{@link https://lodash.com/docs/4.17.4#isArrayLikeObject} are iteratated,
+*                 all [PlainObjects]{@link https://lodash.com/docs/4.17.4#isPlainObject} are traversed,
+*                 and everything else is returned unmodified.
  * @return        A new object with all references dereferenced
  *
  * @example
@@ -69,6 +72,7 @@ import type { Store } from './typings';
  *     type: "father-in-law"
  *   },
  * ];
+ * // 'from' and 'to' will be their respective user objects in the store
  * const dereferencedRelations = smartDereference(store, relations);
  */
 export default function smartDereference(store :Store, val :*) :* {
