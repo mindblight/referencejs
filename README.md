@@ -1,6 +1,6 @@
 # Referencejs [![Build Status](https://travis-ci.org/mindblight/referencejs.svg?branch=master)](https://travis-ci.org/mindblight/referencejs)
 
-Referencejs manages references to values in plain JS or [Immmutable](https://facebook.github.io/immutable-js/) objects. You can use this to:
+Referencejs manages references to values in plain JS or [Immutable](https://facebook.github.io/immutable-js/) objects. You can use this to:
 
 1. Easily manage complex denormalized, without needing an explicited schema
 3. referencing data that doesn't exist yet (e.g. async data)
@@ -72,7 +72,7 @@ const familyTree = smartDereference(store, familyTree);
 ```
 
 ## Plain vs. Immutable
-Referencejs implements the same API for both Plain JS and [Immmutable](https://facebook.github.io/immutable-js/) objects.
+Referencejs implements the same API for both Plain JS and [Immutable](https://facebook.github.io/immutable-js/) objects.
 Read full [API](docs/README.md) docs.
 
 ## What's a Reference?
