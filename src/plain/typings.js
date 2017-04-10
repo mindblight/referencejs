@@ -3,7 +3,6 @@
  */
 export type PathSegment = string | number;
 /**
- * @since 0.1.0
  * A non-empty array of strings and non-negative integers (indeces).
  * They describe how to traverse a JS object to retrieve a value.
  * You should always use {@link createPath}. This validates the Path,
@@ -24,7 +23,6 @@ export type PathSegment = string | number;
 export type Path = PathSegment[];
 
 /**
- * @since 0.1.0
  * A wrapper around at {@link Path}. You should always use {@link createReference}.
  * This validates the Reference, future-proofs your code, and lets you switch
  * from Plain to Immutable by changing an import path.
