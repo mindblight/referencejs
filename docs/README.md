@@ -2,8 +2,8 @@
 ReferenceJS provides a comparable API for both plain and [Immutable](https://facebook.github.io/immutable-js/) objects.
 There are slight differences between the two - primarily in the datatypes they accept and return
 
-- [Plain Object API](docs/plainApi.md)
-- [Immutable API](docs/immutableApi.md)
+- [Plain Object API](plainApi.md)
+- [Immutable API](immutableApi.md)
 
 ## Importing
 ReferenceJS exposes the Plain object API by default:
