@@ -8,12 +8,18 @@ import isPath from './isPath';
 export type FirstArg = PathSegment | PathSegment[];
 
 /**
- * Create a reference path from an array of path segments, or multiple arguments
- * e.g.
- *  createPath(['foo', 'bar']);
- *  createPath('foo', 'bar');
- * @param firstOrArray {PathSegment | PathSegment[]} - an array of PathSegments, or a PathSegment
+ * Create a reference path from *either* an array of PathSegments, or multiple PathSegment arguments
+ * @param firstArg {PathSegment | PathSegment[]} - an array of PathSegments, or a PathSegment
  * @param ...pathSegments
+ * @throws {Error} if both an array of PathSegments and multiple PathSegment arguments are passed
+ * @throw {Error} if something besides a PathSegment is passed
+ * @example
+ *    import createPath from 'referencejs/plain/createPath';
+ *    createPath(['foo', 'bar']);
+ *    createPath('foo', 'bar');
+ *    // Throws an error
+ *    createPath(['foo'], 'bar')
+ *    createPath({}, 9)
  */
 export default function createPath(firstArg :FirstArg, ...pathSegments :PathSegment[]) :Path {
   let path :Path;

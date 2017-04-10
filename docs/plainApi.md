@@ -2,21 +2,271 @@
 
 ### Table of Contents
 
+-   [createPath](#createpath)
+-   [createReference](#createreference)
+-   [dereference](#dereference)
+-   [EmptyReference](#emptyreference)
+-   [isPathSegment](#ispathsegment)
+-   [isPath](#ispath)
+-   [isReference](#isreference)
+-   [resolveReference](#resolvereference)
+-   [smartDereference](#smartdereference)
+-   [storehasReference](#storehasreference)
 -   [PathSegment](#pathsegment)
 -   [Path](#path)
--   [isReference](#isreference)
 -   [Reference](#reference)
--   [isPath](#ispath)
--   [createReference](#createreference)
--   [FirstArg](#firstarg)
 -   [Store](#store)
--   [storehasReference](#storehasreference)
--   [resolveReference](#resolvereference)
--   [dereference](#dereference)
--   [smartDereference](#smartdereference)
--   [createPath](#createpath)
+
+## createPath
+
+Create a reference path from _either_ an array of PathSegments, or multiple PathSegment arguments
+
+**Parameters**
+
+-   `firstArg` **FirstArg** {PathSegment | PathSegment\[]} - an array of PathSegments, or a PathSegment
+-   `pathSegments` **...[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[PathSegment](#pathsegment)>** 
+
+**Examples**
+
+```javascript
+import createPath from 'referencejs/plain/createPath';
+   createPath(['foo', 'bar']);
+   createPath('foo', 'bar');
+   // Throws an error
+   createPath(['foo'], 'bar')
+   createPath({}, 9)
+```
+
+-   Throws **[Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)** if both an array of PathSegments and multiple PathSegment arguments are passed
+
+Returns **[Path](#path)** 
+
+## createReference
+
+Creates a reference.
+
+**Parameters**
+
+-   `firstArg` **([PathSegment](#pathsegment) \| [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[PathSegment](#pathsegment)>)** anything accepted by createPath
+-   `pathSegments` **...[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[PathSegment](#pathsegment)>** 
+
+**Examples**
+
+```javascript
+import createReference from 'referencejs/plain/createReference'
+   const store = {
+     foo: {
+       bar: 5
+     },
+     baz: ['hi']
+   }
+   // create a reference to 'foo.bar' in plain JS object
+   createReference('foo', 'bar');
+   createReference(['foo', 'bar']);
+
+   //create a reference to 'foo[0]'
+   createReference('baz', 0);
+   createReference(['baz', 0]);
+```
+
+Returns **[Reference](#reference)** 
+
+## dereference
+
+retrieves a value at a reference from a store
+
+**Parameters**
+
+-   `store` **[Store](#store)** 
+-   `reference` **[Reference](#reference)** 
+
+**Examples**
+
+```javascript
+import createReference from 'referencejs/plain/createReference';
+import dereference from 'referencejs/plain/dereference';
+
+const user = {
+ name: "john"
+};
+const userReference = createReference('auth', 'users', 'user_1');
+const store = {
+  auth: {
+    users: {
+      user_1: user
+    }
+  }
+};
+dereference(userReference) === user;
+```
+
+Returns **(any | EmptyRefrence)** 
+
+## EmptyReference
+
+references can point to locations without a value.
+
+**Examples**
+
+```javascript
+const store = {};
+const reference = createReference('nothing', 'here');
+dereference(store, reference) == EmptyReference
+```
+
+## isPathSegment
+
+Tests whether the given argument is a valid PathSegment
+
+**Parameters**
+
+-   `maybePathSegment` **any** 
+
+**Examples**
+
+```javascript
+import isPathSegment from 'referencejs/isPathSegment';
+isPathSegment('users') === true
+isPathSegment(5) === true
+isPathSegment({}) === false
+```
+
+Returns **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
+
+## isPath
+
+tests whether the argument is a [Path](#path) or not
+
+**Parameters**
+
+-   `maybePath` **any** 
+
+Returns **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
+
+## isReference
+
+Tests whether the argument is a reference.
+
+**Parameters**
+
+-   `maybeReference` **any** 
+
+Returns **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
+
+## resolveReference
+
+Returns a new [Store](#store) with {@param value} at {@param reference}
+
+**Parameters**
+
+-   `store` **[Store](#store)** 
+-   `reference` **[Reference](#reference)** Reference where the value should be placed
+-   `value` **any** The value to place in the store
+
+**Examples**
+
+```javascript
+import createReference from 'referencejs/plain/createReference';
+import resolveReference from 'referencejs/plain/resolveReference';
+import dereference from 'referencejs/plain/dereference';
+
+const user = {
+ name: "john"
+};
+const userReference = createReference('auth', 'users', 'user_1');
+
+let store = {};
+store = resolveReference(store, userReference, user);
+dereference(userReference) === user;
+```
+
+Returns **[Store](#store)** A new store containing {@param value} at {@param reference}
+
+## smartDereference
+
+Returns a new object with every field dereferenced
+
+**Parameters**
+
+-   `store` **[Store](#store)** 
+-   `val`  The object to traverse and dereference
+
+**Examples**
+
+```javascript
+import createReference from 'referencejs/plain/createReference';
+import resolveReference from 'referencejs/plain/resolveReference';
+import smartDereference from 'referencejs/plain/smartDereference';
+
+function createUserReference(user) {
+  return createReference('users', user.id);
+}
+
+let store = {};
+
+const jon = {
+ id: 'user_1',
+ name: 'jon'
+};
+const jonReference = createUserReference(jon);
+store = resolveReference(store, jonReference, jon);
+
+const james = {
+  id: 'user_2',
+  name: 'james'
+};
+const jamesReference = createUserReference(james);
+store = resolveReference(store, jamesReference, james);
+
+const sally = {
+ id: 'user_3',
+ name: 'sally',
+};
+const sallyReference = createUserReference(sally);
+store = resolveReference(store, sallyReference, sally);
+
+const relations = [
+  {
+    from: jonReference,
+    to: sallyReference,
+    type: "husband"
+  },{
+    from: sallyReference,
+    to: jonReference,
+    type: "wife"
+  },{
+    from: sallyReference,
+    to: jamesReference,
+    type: "daughter"
+  },{
+    from: jonReference,
+    to: jamesReference,
+    type: "son-in-law"
+  },{
+    from: jamesReference,
+    to: jonReference,
+    type: "father-in-law"
+  },
+];
+const dereferencedRelations = smartDereference(store, relations);
+```
+
+Returns **any** A new object with all references dereferenced
+
+## storehasReference
+
+Test if a reference is set in a store.
+
+**Parameters**
+
+-   `store` **[Store](#store)** 
+-   `reference` **[Reference](#reference)** 
+
+Returns **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** false if [dereference](#dereference) would return [EmptyRefrence](EmptyRefrence), otherwise true
 
 ## PathSegment
+
+a non-empty string, or a non-negative integer >= 0
 
 Type: ([string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) \| [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number))
 
@@ -24,89 +274,58 @@ Type: ([string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Referenc
 
 Type: [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[PathSegment](#pathsegment)>
 
-## isReference
+**Examples**
 
-**Parameters**
+```javascript
+const store = {
+  auth: {
+    users: [
+      {
+        name: 'Jon'
+      }
+    ]
+  }
+}
+const path = ['auth', 'users', 0, 'name'];
+```
 
--   `reference`  
+**Meta**
 
-Returns **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
+-   **since**: 0.1.0
+    A non-empty array of strings and non-negative integers (indeces).
+    They describe how to traverse a JS object to retrieve a value.
+    You should always use {@link createPath}. This validates the Path,
+    future-proofs your code, and lets you switch from Plain to Immutable by
+    changing an import path.
 
 ## Reference
 
 Type: {path: [Path](#path)}
 
-## isPath
+**Examples**
 
-**Parameters**
+```javascript
+const store = {
+  auth: {
+    users: [
+      {
+        name: 'Jon'
+      }
+    ]
+  }
+}
+const reference = {
+  path: ['auth', 'users', 0, 'name']
+}
+```
 
--   `path`  
+**Meta**
 
-Returns **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
-
-## createReference
-
-**Parameters**
-
--   `firstArg` **[FirstArg](#firstarg)** 
--   `pathSegments` **...[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[PathSegment](#pathsegment)>** 
-
-Returns **[Reference](#reference)** 
-
-## FirstArg
-
-Type: ([PathSegment](#pathsegment) \| [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[PathSegment](#pathsegment)>)
+-   **since**: 0.1.0
+    A wrapper around at {@link Path}. You should always use {@link createReference}.
+    This validates the Reference, future-proofs your code, and lets you switch
+    from Plain to Immutable by changing an import path.
 
 ## Store
 
 Type: {}
-
-## storehasReference
-
-**Parameters**
-
--   `store` **[Store](#store)** 
--   `reference` **[Reference](#reference)** 
-
-## resolveReference
-
-**Parameters**
-
--   `store` **[Store](#store)** 
--   `reference` **[Reference](#reference)** 
--   `value`  
-
-Returns **[Store](#store)** 
-
-## dereference
-
-**Parameters**
-
--   `store` **[Store](#store)** 
--   `reference` **[Reference](#reference)** 
-
-Returns **any** 
-
-## smartDereference
-
-**Parameters**
-
--   `store` **[Store](#store)** 
--   `val`  
-
-Returns **any** 
-
-## createPath
-
-Create a reference path from an array of path segments, or multiple arguments
-e.g.
- createPath(['foo', 'bar']);
- createPath('foo', 'bar');
-
-**Parameters**
-
--   `firstOrArray`  {PathSegment | PathSegment\[]} - an array of PathSegments, or a PathSegment
--   `firstArg` **[FirstArg](#firstarg)** 
--   `pathSegments` **...[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[PathSegment](#pathsegment)>** 
-
-Returns **[Path](#path)** 

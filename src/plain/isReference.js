@@ -1,6 +1,11 @@
 // @flow
 import isPath from './isPath';
 
-export default function isReference(reference :*) :boolean {
-  return !!reference && isPath(reference.path);
+/**
+ * Tests whether the argument is a reference.
+ * @param maybeReference
+ * @return
+ */
+export default function isReference(maybeReference :any) :boolean {
+  return !!maybeReference && isPath(maybeReference.path);
 }

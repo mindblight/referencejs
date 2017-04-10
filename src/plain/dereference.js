@@ -7,7 +7,29 @@ import EmptyRefrence from '../EmptyReference';
 import storeHasReference from './storeHasReference';
 import type { Store, Reference } from './typings';
 
-export default function dereference(store :Store, reference :Reference) :* {
+/**
+ * retrieves a value at a reference from a store
+ * @param  store
+ * @param  reference
+ * @return {any | EmptyRefrence}
+ * @example
+ * import createReference from 'referencejs/plain/createReference';
+ * import dereference from 'referencejs/plain/dereference';
+ *
+ * const user = {
+ *  name: "john"
+ * };
+ * const userReference = createReference('auth', 'users', 'user_1');
+ * const store = {
+ *   auth: {
+ *     users: {
+ *       user_1: user
+ *     }
+ *   }
+ * };
+ * dereference(userReference) === user;
+ */
+export default function dereference(store :Store, reference :Reference) :any {
   if (isNil(store)) {
     throw new Error('"store" must be defined');
   }

@@ -2,110 +2,11 @@
 
 ### Table of Contents
 
--   [PathSegment](#pathsegment)
--   [isImmutable](#isimmutable)
--   [ImmutablePath](#immutablepath)
--   [isPath](#ispath)
--   [isReference](#isreference)
--   [ImmutableReference](#immutablereference)
--   [dereference](#dereference)
--   [ImmutableStore](#immutablestore)
--   [storeHasReference](#storehasreference)
--   [FirstArg](#firstarg)
--   [smartDereference](#smartdereference)
--   [resolveReference](#resolvereference)
--   [createReference](#createreference)
 -   [createPath](#createpath)
-
-## PathSegment
-
-Type: ([string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) \| [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number))
-
-## isImmutable
-
-**Parameters**
-
--   `obj` **any** 
-
-Returns **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
-
-## ImmutablePath
-
-Type: List&lt;[PathSegment](#pathsegment)>
-
-## isPath
-
-**Parameters**
-
--   `path`  
-
-Returns **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
-
-## isReference
-
-**Parameters**
-
--   `reference` **any** 
-
-Returns **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
-
-## ImmutableReference
-
-Type: Record&lt;{path: [ImmutablePath](#immutablepath)}>
-
-## dereference
-
-**Parameters**
-
--   `store` **[ImmutableStore](#immutablestore)** 
--   `reference` **[ImmutableReference](#immutablereference)** 
-
-Returns **any** 
-
-## ImmutableStore
-
-Type: [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String), any>
-
-## storeHasReference
-
-**Parameters**
-
--   `store` **[ImmutableStore](#immutablestore)** 
--   `reference` **[ImmutableReference](#immutablereference)** 
-
-Returns **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
-
-## FirstArg
-
-Type: (FirstArgPlain | List&lt;[PathSegment](#pathsegment)>)
-
-## smartDereference
-
-**Parameters**
-
--   `store` **[ImmutableStore](#immutablestore)** 
--   `val`  
-
-Returns **any** 
-
-## resolveReference
-
-**Parameters**
-
--   `store` **[ImmutableStore](#immutablestore)** 
--   `reference` **[ImmutableReference](#immutablereference)** 
--   `value`  
-
-Returns **[ImmutableStore](#immutablestore)** 
-
-## createReference
-
-**Parameters**
-
--   `firstArg` **[FirstArg](#firstarg)** 
--   `pathSegments` **...[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[PathSegment](#pathsegment)>** 
-
-Returns **[ImmutableReference](#immutablereference)** 
+-   [createPath](#createpath-1)
+-   [isPath](#ispath)
+-   [EmptyReference](#emptyreference)
+-   [isPathSegment](#ispathsegment)
 
 ## createPath
 
@@ -117,7 +18,72 @@ e.g.
 **Parameters**
 
 -   `firstOrArray`  {PathSegment | PathSegment\[] | List<PathSegment>} - an array of PathSegments, or a PathSegment
--   `firstArg` **[FirstArg](#firstarg)** 
--   `pathSegments` **...[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[PathSegment](#pathsegment)>** 
+-   `firstArg` **FirstArg** 
+-   `pathSegments` **...[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;PathSegment>** 
 
-Returns **[ImmutablePath](#immutablepath)** 
+Returns **ImmutablePath** 
+
+## createPath
+
+Create a reference path from _either_ an array of PathSegments, or multiple PathSegment arguments
+
+**Parameters**
+
+-   `firstArg` **FirstArg** {PathSegment | PathSegment\[]} - an array of PathSegments, or a PathSegment
+-   `pathSegments` **...[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;PathSegment>** 
+
+**Examples**
+
+```javascript
+import createPath from 'referencejs/plain/createPath';
+   createPath(['foo', 'bar']);
+   createPath('foo', 'bar');
+   // Throws an error
+   createPath(['foo'], 'bar')
+   createPath({}, 9)
+```
+
+-   Throws **[Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)** if both an array of PathSegments and multiple PathSegment arguments are passed
+
+Returns **Path** 
+
+## isPath
+
+tests whether the argument is a [Path](Path) or not
+
+**Parameters**
+
+-   `maybePath` **any** 
+
+Returns **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
+
+## EmptyReference
+
+references can point to locations without a value.
+
+**Examples**
+
+```javascript
+const store = {};
+const reference = createReference('nothing', 'here');
+dereference(store, reference) == EmptyReference
+```
+
+## isPathSegment
+
+Tests whether the given argument is a valid PathSegment
+
+**Parameters**
+
+-   `maybePathSegment` **any** 
+
+**Examples**
+
+```javascript
+import isPathSegment from 'referencejs/isPathSegment';
+isPathSegment('users') === true
+isPathSegment(5) === true
+isPathSegment({}) === false
+```
+
+Returns **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
