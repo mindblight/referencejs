@@ -6,7 +6,7 @@
   "scripts": {
     "build": "npm-run-all build:lib",
     "build:lib": "babel src -d ./",
-    "build:docs": "npm-run-all _docs:build:*",
+    "build:docs": "npm-run-all --parallel _docs:build:*",
     "clean": "npm-run-all clean:*",
     "clean:lib": "rm -r immutable plain EmptyReference.js isPathSegment.js",
     "_docs:build:plain": "documentation build src/plain/*.js -f md -o docs/PlainApi.md",
