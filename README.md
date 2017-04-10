@@ -1,36 +1,56 @@
 # Referencejs [![Build Status](https://travis-ci.org/mindblight/referencejs.svg?branch=master)](https://travis-ci.org/mindblight/referencejs)
 
-Referencejs manages references to values in plain JS or [Immutable](https://facebook.github.io/immutable-js/) objects. You can use this to:
+Referencejs manages references to values in plain JS or [Immutable](https://facebook.github.io/immutable-js/) objects (called stores). You can use this to:
 
 1. Easily manage complex denormalized, without needing an explicited schema
-3. referencing data that doesn't exist yet (e.g. async data)
-4. normalize and denormalize immutable data
+2. referencing data that doesn't exist yet (e.g. async data)
+3. normalize and denormalize immutable data
+4. Lazily denormalize stored data
 
-## A Basic Example
 
-```js
-import {
-  createReference,
-  resolveReference,
-  dereference,
-} from 'referencejs';
-
-const user = {
-  id: 'abc',
-  name: 'John Doe'
-};
-const reference = createReference('users', user.id);
-
-let store = {};
-store = resolveReference(store, reference, user);
-
-dereference(store, reference) === user;
+## Getting Started
+Install the library
+```sh
+npm install --save referencejs
 ```
 
-## dereferencing using `smartDereference`
-Dereferencing one reference at a time isn't that useful. `smartDereference` dereferences
-every reference in an object. This is useful if you have data structures that differ
-significantly from your store
+Update a Plain store
+```js
+import { createReference, resolveReference, dereference } from 'referencejs';
+const jon = {
+  id: 'user_1',
+  name: 'John Doe',
+  email: 'jon@doe.com'
+};
+const jonRefrence = createReference('auth', 'users', jon.id);
+
+let store = {};
+store = resolveReference(store, jonReference, jon);
+
+dereference(store, jonRefrence) === jon;
+```
+
+Or use immutable if that's your jam
+
+```js
+import { Map, is } from 'immutable';
+import { createReference, resolveReference, dereference } from 'referencejs/immutable';
+const jon = Map({
+  id: 'user_1',
+  name: 'John Doe',
+  email: 'jon@doe.com'
+});
+const jonRefrence = createReference('auth', 'users', jon.id);
+
+let store = Map();
+store = resolveReference(store, jonReference, jon);
+
+is(dereference(store, jonRefrence), jon);
+```
+
+## More Advanced: `smartDereference`
+Dereferencing one reference at a time can be painful.
+`smartDereference` scans an object or array and dereferences every reference it finds
 
 ```js
 import {
@@ -71,14 +91,5 @@ const familyTreeReferences = {
 const familyTree = smartDereference(store, familyTree);
 ```
 
-## Plain vs. Immutable
-Referencejs implements the same API for both Plain JS and [Immutable](https://facebook.github.io/immutable-js/) objects.
-Read full [API](docs/README.md) docs.
-
-## What's a Reference?
-A reference is an object that contains everything needed to find a value in a JSON object (called the store).
-The signature looks like:
-
-    {
-      path : Array<number|string>
-    }
+## Like what you see?
+- [Read the docs](docs/README.md)
