@@ -11,7 +11,7 @@ import { List, Map, Record } from 'immutable';
 export type PathSegment = string | number;
 
 /**
- * A non-empty {@link List} of strings and non-negative integers (indeces).
+ * A non-empty List of strings and non-negative integers (indeces).
  * They describe how to traverse an Immutable object to retrieve a value.
  * You should always use {@link createPath}. This validates the ImmutablePath,
  * future-proofs your code, and lets you switch from Plain to Immutable by

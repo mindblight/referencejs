@@ -23,7 +23,7 @@ Create a reference path from _either_ an array of [PathSegment](#pathsegment)s, 
 
 **Parameters**
 
--   `firstArg` **FirstArg** 
+-   `firstArg` **([PathSegment](#pathsegment) \| [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[PathSegment](#pathsegment)>)** 
 -   `pathSegments` **...[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[PathSegment](#pathsegment)>** 
 
 **Examples**
@@ -49,8 +49,8 @@ Creates a [Reference](#reference).
 
 **Parameters**
 
+-   `firstArg` **([PathSegment](#pathsegment) \| [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[PathSegment](#pathsegment)>)** 
 -   `pathSegments` **...[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[PathSegment](#pathsegment)>** 
--   `firstArg` **FirstArg** 
 
 **Examples**
 

@@ -23,7 +23,7 @@ Create a reference path from _either_ an array of [PathSegment](#pathsegment)s, 
 
 **Parameters**
 
--   `firstArg` **FirstArg** 
+-   `firstArg` **([PathSegment](#pathsegment) \| [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[PathSegment](#pathsegment)> | List&lt;[PathSegment](#pathsegment)>)** 
 -   `pathSegments` **...[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[PathSegment](#pathsegment)>** 
 
 **Examples**
@@ -52,8 +52,8 @@ Creates an [ImmutableReference](#immutablereference)
 
 **Parameters**
 
+-   `firstArg` **([PathSegment](#pathsegment) \| [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[PathSegment](#pathsegment)> | List&lt;[PathSegment](#pathsegment)>)** 
 -   `pathSegments` **...[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[PathSegment](#pathsegment)>** 
--   `firstArg` **FirstArg** 
 
 **Examples**
 
@@ -213,8 +213,7 @@ tests whether the argument is a [ImmutablePath](#immutablepath)
 
 **Parameters**
 
--   `maybePath`  
--   `path`  
+-   `maybePath` **any** 
 
 **Examples**
 
@@ -256,8 +255,7 @@ is that it is an Immutable object where `get('path')` returns an [ImmutablePath]
 
 **Parameters**
 
--   `maybeReference`  
--   `reference` **any** 
+-   `maybeReference` **any** 
 
 **Examples**
 

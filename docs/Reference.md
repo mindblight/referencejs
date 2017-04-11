@@ -106,4 +106,4 @@ Immutable objects.
 **Async:** `dereference` and `smartDereference` both gracefully handle empty references.
 This means your application can create a reference before it exists in the store.
 
-_Next_ read [Plain vs. Immutable](PlainVs.Immutable.md)
+_Next_ read [Plain vs. Immutable](PlainVsImmutable.md)

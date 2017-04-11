@@ -21,8 +21,7 @@ store = resolveReference(store, jonReference, jon);
 dereference(store, jonRefrence) === jon;
 ```
 
-Or use immutable if that's your jam
-
+Or use [Immutable](https://facebook.github.io/immutable-js/) if that's your jam
 ```js
 import { Map, is } from 'immutable';
 import { createReference, resolveReference, dereference } from 'referencejs/immutable';

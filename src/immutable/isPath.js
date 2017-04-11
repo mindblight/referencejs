@@ -14,8 +14,8 @@ import isPathSegment from '../isPathSegment';
  * isPath(['foo', 0]) === false;
  * isPath(List(['', -10])) === false;
  */
-export default function isPath(path :*) :boolean {
-  return List.isList(path)
-    && path.size > 0
-    && path.every(isPathSegment);
+export default function isPath(maybePath :any) :boolean {
+  return List.isList(maybePath)
+    && maybePath.size > 0
+    && maybePath.every(isPathSegment);
 }

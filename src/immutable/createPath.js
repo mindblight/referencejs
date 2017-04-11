@@ -10,7 +10,7 @@ export type FirstArg = FirstArgPlain | List<PathSegment>;
 
 /**
  * Create a reference path from *either* an array of {@link PathSegment}s, or multiple {@link PathSegment} arguments
- * @param {PathSegment | PathSegment[]}
+ * @param {PathSegment | PathSegment[] | List<PathSegment>} firstArg
  * @param ...pathSegments
  * @throws {Error} if both an array of PathSegments and multiple PathSegment arguments are passed
  * @throws {Error} if something besides a PathSegment is passed

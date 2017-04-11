@@ -17,6 +17,6 @@ import isPath from './isPath';
  * isReference({}) === false;
  * isReference(null) === false;
  */
-export default function isReference(reference :any) :boolean {
-  return isImmutable(reference) && isPath(reference.get('path'));
+export default function isReference(maybeReference :any) :boolean {
+  return isImmutable(maybeReference) && isPath(maybeReference.get('path'));
 }

@@ -5,7 +5,7 @@ import createPath from './createPath';
 
 /**
  * Creates a {@link Reference}.
- * @param  {PathSegment | PathSegment[]}
+ * @param  {PathSegment | PathSegment[]} firstArg
  * @param  pathSegments
  * @return
  *

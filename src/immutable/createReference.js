@@ -11,7 +11,7 @@ const Reference = Record({
 
 /**
  * Creates an {@link ImmutableReference}
- * @param  {PathSegment | PathSegment[] | List<PathSegment>}
+ * @param  {PathSegment | PathSegment[] | List<PathSegment>} firstArg
  * @param  pathSegments
  * @return
  *
