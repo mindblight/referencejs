@@ -9,11 +9,6 @@ Referencejs manages references to values in plain JS or [Immutable](https://face
 
 
 ## Getting Started
-Install the library
-```sh
-npm install --save referencejs
-```
-
 Update a Plain store
 ```js
 import { createReference, resolveReference, dereference } from 'referencejs';
@@ -30,8 +25,7 @@ store = resolveReference(store, jonReference, jon);
 dereference(store, jonRefrence) === jon;
 ```
 
-Or use immutable if that's your jam
-
+Or use [Immutable](https://facebook.github.io/immutable-js/) if that's your jam
 ```js
 import { Map, is } from 'immutable';
 import { createReference, resolveReference, dereference } from 'referencejs/immutable';
@@ -46,7 +40,6 @@ let store = Map();
 store = resolveReference(store, jonReference, jon);
 
 is(dereference(store, jonRefrence), jon);
-```
 
 ## More Advanced: `smartDereference`
 Dereferencing one reference at a time can be painful.
