@@ -40,6 +40,7 @@ let store = Map();
 store = resolveReference(store, jonReference, jon);
 
 is(dereference(store, jonRefrence), jon);
+```
 
 ## More Advanced: `smartDereference`
 Dereferencing one reference at a time can be painful.
