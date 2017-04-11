@@ -1,7 +1,7 @@
 node_modules/
 npm-debug.log
 
-EmptyReference.js
-isPathSegment.js
-plain/
-immutable/
+./EmptyReference.js
+./isPathSegment.js
+./plain/
+./immutable/
