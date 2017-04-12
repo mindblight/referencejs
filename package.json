@@ -20,7 +20,19 @@
   "author": "Arion Sprague",
   "license": "MIT",
   "keywords": [
-    "reference"
+    "reference",
+    "dereference",
+    "redux",
+    "flux",
+    "normalize",
+    "denormalize",
+    "json"
+  ],
+  "files": [
+    "immutable/",
+    "plain/",
+    "EmptyReference.js",
+    "resolve"
   ],
   "repository": {
     "type": "git",
