@@ -1,10 +1,16 @@
 {
   "name": "referencejs",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Easily create, update, and manipulate references to values in a JSON document.",
-  "main": "lib/index.js",
+  "main": "plain/index.js",
   "scripts": {
-    "build": "babel src -d lib",
+    "build": "npm-run-all build:lib",
+    "build:lib": "babel src -d ./",
+    "build:docs": "npm-run-all --parallel _docs:build:*",
+    "clean": "npm-run-all clean:*",
+    "clean:lib": "rm -r immutable plain EmptyReference.js isPathSegment.js",
+    "_docs:build:plain": "documentation build src/plain/*.js --sort-order alpha -f md -o docs/PlainApi.md",
+    "_docs:build:immutable": "documentation build src/immutable/*.js src/*.js --sort-order alpha --shallow -f md -o docs/ImmutableApi.md",
     "test": "karma start config/karma.conf.js",
     "test:dev": "TEST_PROFILE=dev karma start config/karma.conf.js",
     "lint": "eslint src test || exit 0",
@@ -33,6 +39,7 @@
     "babel-preset-es2015": "^6.24.0",
     "chai": "^3.5.0",
     "chai-immutable": "^1.6.0",
+    "documentation": "^4.0.0-beta.18",
     "eslint": "^3.18.0",
     "eslint-plugin-flowtype": "^2.30.4",
     "flow-bin": "^0.42.0",
@@ -44,6 +51,7 @@
     "karma-phantomjs-launcher": "^1.0.4",
     "karma-webpack": "^2.0.3",
     "mocha": "^3.2.0",
+    "npm-run-all": "^4.0.2",
     "webpack": "^2.3.0"
   }
 }

@@ -1,23 +1,23 @@
 // @flow
 import isNill from 'lodash/isNil';
+import has from 'lodash/has';
 
 import isReference from './isReference';
-import type { ImmutableStore, ImmutableReference } from './typings';
+import type { Store, Reference } from './typings';
 
 /**
- * Test if {@link ImmutableReference} is set in {@link ImmutableStore}.
+ * Test if {@link Reference} is set in {@link Store}.
  * @param  store
  * @param  reference
  * @return {Boolean}
  *
  * @example
- * import { Map } from 'immutable';
- * import storehasReference from 'referencejs/immutable/storehasReference';
- * import createReference from 'referencejs/immutable/createReference';
+ * import storehasReference from 'referencejs/plain/storehasReference';
+ * import createReference from 'referencejs/plain/createReference';
  *
- * const store = Map({
+ * const store = {
  *   foo: 5,
- * });
+ * };
  *
  * const reference = createReference('foo');
  * const emptyRefrence = createReference('bar');
@@ -25,10 +25,7 @@ import type { ImmutableStore, ImmutableReference } from './typings';
  * storehasReference(store, foo) === true;
  * storehasReference(store, emptyRefrence) === false;
  */
-export default function storeHasReference(
-  store :ImmutableStore,
-  reference :ImmutableReference) :boolean {
-
+export default function storehasReference(store :Store, reference :Reference) {
   if (isNill(store)) {
     throw new Error('"store" must be defined');
   }
@@ -36,5 +33,5 @@ export default function storeHasReference(
     throw new Error('"reference" must be a valid reference');
   }
 
-  return store.hasIn(reference.get('path'));
+  return has(store, reference.path);
 }

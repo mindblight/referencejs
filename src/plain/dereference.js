@@ -1,35 +1,35 @@
 // @flow
 import isNil from 'lodash/isNil';
+import get from 'lodash/get';
 
 import isReference from './isReference';
 import EmptyRefrence from '../EmptyReference';
-import type { ImmutableStore, ImmutableReference } from './typings';
+import storeHasReference from './storeHasReference';
+import type { Store, Reference } from './typings';
 
 /**
  * retrieves a value at a reference from a store
  * @param  store
  * @param  reference
  * @return The value at `reference` or {@link EmptyRefrence} if value is not present
- *
  * @example
- * import { fromJS } from 'immutable';
- * import createReference from 'referencejs/immutable/createReference';
- * import dereference from 'referencejs/immutable/dereference';
+ * import createReference from 'referencejs/plain/createReference';
+ * import dereference from 'referencejs/plain/dereference';
  *
- * const user = fromJS({
+ * const user = {
  *  name: "john"
- * });
+ * };
  * const userReference = createReference('auth', 'users', 'user_1');
- * const store = fromJS({
+ * const store = {
  *   auth: {
  *     users: {
  *       user_1: user
  *     }
  *   }
- * });
+ * };
  * dereference(store, userReference) === user;
  */
-export default function dereference(store :ImmutableStore, reference :ImmutableReference) :* {
+export default function dereference(store :Store, reference :Reference) :any {
   if (isNil(store)) {
     throw new Error('"store" must be defined');
   }
@@ -37,5 +37,8 @@ export default function dereference(store :ImmutableStore, reference :ImmutableR
     throw new Error('"reference" must be a valid reference');
   }
 
-  return store.getIn(reference.get('path'), EmptyRefrence);
+  if (storeHasReference(store, reference)) {
+    return get(store, reference.path);
+  }
+  return EmptyRefrence;
 }

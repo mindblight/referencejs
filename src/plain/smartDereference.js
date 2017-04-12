@@ -1,53 +1,55 @@
 // @flow
 import isNil from 'lodash/isNil';
-import { Record } from 'immutable';
+import isArrayLikeObject from 'lodash/isArrayLikeObject';
+import isPlainObject from 'lodash/isPlainObject';
+import mapValues from 'lodash/mapValues';
 
-import isImmutable from './_isImmutable';
 import isReference from './isReference';
 import dereference from './dereference';
-import type { ImmutableStore } from './typings';
+import type { Store } from './typings';
 
 /**
- * Traverses {@param val} and dereferences every reference.
+ * Traverses `val` and dereferences every reference.
  * @param  store
- * @param  val    The object to scan. {@link ImmutableReference}s are dereferenced,
-*                 all other immutable objects are traversed, and everything else is returned unmodified.
- * @return        A new immutable object with all references dereferenced
+ * @param  val    The object to scan. {@link Reference}s are dereferenced,
+*                 all {@link https://lodash.com/docs/4.17.4#isArrayLikeObject|ArrayLikeObjects} are iteratated,
+*                 all {@link https://lodash.com/docs/4.17.4#isPlainObject|PlainObjects} are traversed,
+*                 and everything else is returned unmodified.
+ * @return        A new object with all references dereferenced
  *
  * @example
- * import { fromJS, Map } from 'immutable';
- * import createReference from 'referencejs/immutable/createReference';
- * import resolveReference from 'referencejs/immutable/resolveReference';
- * import smartDereference from 'referencejs/immutable/smartDereference';
+ * import createReference from 'referencejs/plain/createReference';
+ * import resolveReference from 'referencejs/plain/resolveReference';
+ * import smartDereference from 'referencejs/plain/smartDereference';
  *
  * function createUserReference(user) {
  *   return createReference('users', user.id);
  * }
  *
- * let store = Map();
+ * let store = {};
  *
- * const jon = Map({
+ * const jon = {
  *  id: 'user_1',
  *  name: 'jon'
- * });
+ * };
  * const jonReference = createUserReference(jon);
  * store = resolveReference(store, jonReference, jon);
  *
- * const james = Map({
+ * const james = {
  *   id: 'user_2',
  *   name: 'james'
- * });
+ * };
  * const jamesReference = createUserReference(james);
  * store = resolveReference(store, jamesReference, james);
  *
- * const sally = Map({
+ * const sally = {
  *  id: 'user_3',
  *  name: 'sally',
- * });
+ * };
  * const sallyReference = createUserReference(sally);
  * store = resolveReference(store, sallyReference, sally);
  *
- * const relations = fromJS([
+ * const relations = [
  *   {
  *     from: jonReference,
  *     to: sallyReference,
@@ -69,11 +71,11 @@ import type { ImmutableStore } from './typings';
  *     to: jonReference,
  *     type: "father-in-law"
  *   },
- * ]);
+ * ];
  * // 'from' and 'to' will be their respective user objects in the store
  * const dereferencedRelations = smartDereference(store, relations);
  */
-export default function smartDereference(store :ImmutableStore, val :*) :* {
+export default function smartDereference(store :Store, val :*) :* {
   if (isNil(store)) {
     throw new Error('"store" must be defined');
   }
@@ -81,14 +83,13 @@ export default function smartDereference(store :ImmutableStore, val :*) :* {
   if (isReference(val)) {
     return dereference(store, val);
   }
-  else if (val instanceof Record) {
-    // Hack to deal with Record not supporting map. See https://github.com/facebook/immutable-js/issues/505
-    const dereferencedRecordData = val.toMap().map(value => smartDereference(store, value));
-    const RecordClass = val.constructor;
-    return new RecordClass(dereferencedRecordData);
-  }
-  else if (isImmutable(val)) {
+  else if(isArrayLikeObject(val)) {
     return val.map(value => smartDereference(store, value));
+  }
+  else if (isPlainObject(val)) {
+    return mapValues(val, (value) => {
+      return smartDereference(store, value);
+    });
   }
   return val;
 }

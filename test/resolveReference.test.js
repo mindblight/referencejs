@@ -4,10 +4,10 @@ import { fromJS } from 'immutable';
 import { expect } from 'chai';
 import './applyChaiPlugins';
 
-import createReferencePlain from '../src/createReference';
+import createReferencePlain from '../src/plain/createReference';
 import createReferenceImmutable from '../src/immutable/createReference';
 
-import resolveReferencePlain from '../src/resolveReference';
+import resolveReferencePlain from '../src/plain/resolveReference';
 import resolveReferenceImmutable from '../src/immutable/resolveReference';
 
 

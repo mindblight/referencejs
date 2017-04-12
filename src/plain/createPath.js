@@ -1,3 +1,4 @@
+// @flow
 import isArrayLikeObject from 'lodash/isArrayLikeObject';
 import clone from 'lodash/clone';
 
@@ -7,12 +8,20 @@ import isPath from './isPath';
 export type FirstArg = PathSegment | PathSegment[];
 
 /**
- * Create a reference path from an array of path segments, or multiple arguments
- * e.g.
- *  createPath(['foo', 'bar']);
- *  createPath('foo', 'bar');
- * @param firstOrArray {PathSegment | PathSegment[]} - an array of PathSegments, or a PathSegment
+ * Create a reference path from *either* an array of {@link PathSegment}s, or multiple {@link PathSegment} arguments
+ * @param {PathSegment | PathSegment[]} firstArg
  * @param ...pathSegments
+ * @throws {Error} if both an array of PathSegments and multiple PathSegment arguments are passed
+ * @throws {Error} if something besides a PathSegment is passed
+ *
+ * @example
+ * import createPath from 'referencejs/plain/createPath';
+ * createPath(['foo', 'bar']);
+ * createPath('foo', 'bar');
+ *
+ * // Throws an error
+ * createPath(['foo'], 'bar')
+ * createPath({}, 9);
  */
 export default function createPath(firstArg :FirstArg, ...pathSegments :PathSegment[]) :Path {
   let path :Path;
@@ -23,8 +32,7 @@ export default function createPath(firstArg :FirstArg, ...pathSegments :PathSegm
     }
     path = clone(firstArg);
   } else {
-    path = clone(pathSegments);
-    path.unshift(firstArg);
+    path = [(firstArg :any)].concat(pathSegments);
   }
 
   if (!isPath(path)) {

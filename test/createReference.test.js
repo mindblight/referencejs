@@ -3,10 +3,10 @@ import { expect } from 'chai';
 import './applyChaiPlugins';
 import { List } from 'immutable';
 
-import isReferencePlain from '../src/isReference';
+import isReferencePlain from '../src/plain/isReference';
 import isReferenceImmutable from '../src/immutable/isReference';
 
-import createReferencePlain from '../src/createReference';
+import createReferencePlain from '../src/plain/createReference';
 import createReferenceImmutable from '../src/immutable/createReference';
 
 describe('createReference', function() {

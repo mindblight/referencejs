@@ -1,16 +1,41 @@
-import { Map } from 'immutable';
-import isPath from './isPath';
+// @flow
+import { Record, List } from 'immutable';
 
-import type { PathSegment } from './typings';
+import type { PathSegment, ImmutableReference } from './typings';
 import type { FirstArg } from './createPath';
 import createPath from './createPath';
 
-/* Reference */
-export default function createReference(firstArg :FirstArg, ...pathSegments :PathSegment[]) :Reference {
-  const path = createPath(firstArg, ...pathSegments);
-  if (!isPath(path)) {
-    throw Error(`path" must be a non-empty array of strings and integers. Received ${path.join(', ')}`);
-  }
+const Reference = Record({
+  path: List(),
+});
 
-  return Map({ path });
+/**
+ * Creates an {@link ImmutableReference}
+ * @param  {PathSegment | PathSegment[] | List<PathSegment>} firstArg
+ * @param  pathSegments
+ * @return
+ *
+ * @example
+ * import { fromJS } from 'immutable';
+ * import createReference from 'referencejs/immutable/createReference'
+ * const store = fromJS({
+ *   foo: {
+ *     bar: 5
+ *   },
+ *   baz: ['hi']
+ * });
+ * // create a reference to 'foo.bar' in plain JS object
+ * createReference('foo', 'bar');
+ * createReference(['foo', 'bar']);
+ * createReference(List(['foo', 'bar']));
+ *
+ * //create a reference to 'baz[0]'
+ * createReference('baz', 0);
+ * createReference(['baz', 0]);
+ * createReference(List(['baz', 0]));
+ */
+export default function createReference(firstArg :FirstArg, ...pathSegments :PathSegment[]) :ImmutableReference {
+  const path = createPath(firstArg, ...pathSegments);
+
+  return Reference({ path });
 }
