@@ -4,11 +4,9 @@ node_js:
   - '6'
 
 script:
-  - npm run lint
-  - npm run flow
-  - npm test
-  - npm run build
+  - yarn run lint
+  - yarn run flow
+  - yarn run test
+  - yarn run build
 
-cache:
-  directories:
-    - node_modules
+cache: yarn
