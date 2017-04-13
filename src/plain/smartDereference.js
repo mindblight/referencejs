@@ -18,9 +18,7 @@ import type { Store } from './typings';
  * @return        A new object with all references dereferenced
  *
  * @example
- * import createReference from 'referencejs/plain/createReference';
- * import resolveReference from 'referencejs/plain/resolveReference';
- * import smartDereference from 'referencejs/plain/smartDereference';
+ * import { createReference, resolveReference, smartDereference } from 'referencejs';
  *
  * function createUserReference(user) {
  *   return createReference('users', user.id);

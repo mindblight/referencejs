@@ -15,9 +15,7 @@ import type { ImmutableStore, ImmutableReference, ImmutablePath, PathSegment } f
  *
  * @example
  * import { Map } from 'immutable';
- * import createReference from 'referencejs/immutable/createReference';
- * import resolveReference from 'referencejs/immutable/resolveReference';
- * import dereference from 'referencejs/immutable/dereference';
+ * import { createReference, resolveReference, dereference } from 'referencejs/immutable';
  *
  * const user = Map({
  *  name: "john"

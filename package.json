@@ -1,6 +1,6 @@
 {
   "name": "referencejs",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Easily create, update, and manipulate references to values in a JSON document.",
   "main": "plain/index.js",
   "scripts": {
@@ -20,7 +20,19 @@
   "author": "Arion Sprague",
   "license": "MIT",
   "keywords": [
-    "reference"
+    "reference",
+    "dereference",
+    "redux",
+    "flux",
+    "normalize",
+    "denormalize",
+    "json"
+  ],
+  "files": [
+    "immutable/",
+    "plain/",
+    "EmptyReference.js",
+    "resolve"
   ],
   "repository": {
     "type": "git",

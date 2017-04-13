@@ -6,8 +6,7 @@ import isPath from './isPath';
  * @param maybeReference
  * @return
  * @example
- * import isReference from 'referencejs/plain/isReference';
- * import createReference from 'referencejs/plain/createReference';
+ * import { isReference, createReference } from 'referencejs';
  *
  * isReference(createReference('foo')) === true;
  * isReference({}) === false;

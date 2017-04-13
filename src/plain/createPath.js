@@ -15,7 +15,7 @@ export type FirstArg = PathSegment | PathSegment[];
  * @throws {Error} if something besides a PathSegment is passed
  *
  * @example
- * import createPath from 'referencejs/plain/createPath';
+ * import { createPath } from 'referencejs';
  * createPath(['foo', 'bar']);
  * createPath('foo', 'bar');
  *

@@ -14,9 +14,7 @@ import type { Store, Reference } from './typings';
  * @return                A new {@link Store} containing `value` at `reference`
  *
  * @example
- * import createReference from 'referencejs/plain/createReference';
- * import resolveReference from 'referencejs/plain/resolveReference';
- * import dereference from 'referencejs/plain/dereference';
+ * import { createReference, resolveReference, dereference } from 'referencejs';
  *
  * const user = {
  *  name: "john"

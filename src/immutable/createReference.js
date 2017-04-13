@@ -17,7 +17,8 @@ const Reference = Record({
  *
  * @example
  * import { fromJS } from 'immutable';
- * import createReference from 'referencejs/immutable/createReference'
+ * import { createReference } from 'referencejs/immutable'
+ * 
  * const store = fromJS({
  *   foo: {
  *     bar: 5

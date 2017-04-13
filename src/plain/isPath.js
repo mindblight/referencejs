@@ -7,7 +7,7 @@ import isArrayLikeObject from 'lodash/isArrayLikeObject';
  * @param   maybePath
  * @return {Boolean}
  * @example
- * import isPath from 'referencejs/plain/isPath';
+ * import { isPath } from 'referencejs';
  *
  * isPath(['foo', 0]) === true;
  * isPath(['', -10]) === false;
