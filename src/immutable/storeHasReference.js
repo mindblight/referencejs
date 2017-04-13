@@ -12,8 +12,7 @@ import type { ImmutableStore, ImmutableReference } from './typings';
  *
  * @example
  * import { Map } from 'immutable';
- * import storehasReference from 'referencejs/immutable/storehasReference';
- * import createReference from 'referencejs/immutable/createReference';
+ * import { storehasReference, createReference } from 'referencejs/immutable';
  *
  * const store = Map({
  *   foo: 5,

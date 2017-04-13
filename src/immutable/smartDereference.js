@@ -16,9 +16,7 @@ import type { ImmutableStore } from './typings';
  *
  * @example
  * import { fromJS, Map } from 'immutable';
- * import createReference from 'referencejs/immutable/createReference';
- * import resolveReference from 'referencejs/immutable/resolveReference';
- * import smartDereference from 'referencejs/immutable/smartDereference';
+ * import { createReference, resolveReference, smartDereference } from 'referencejs/immutable';
  *
  * function createUserReference(user) {
  *   return createReference('users', user.id);

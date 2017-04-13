@@ -13,8 +13,7 @@ import type { Store, Reference } from './typings';
  * @param  reference
  * @return The value at `reference` or {@link EmptyRefrence} if value is not present
  * @example
- * import createReference from 'referencejs/plain/createReference';
- * import dereference from 'referencejs/plain/dereference';
+ * import { createReference, dereference } from 'referencejs';
  *
  * const user = {
  *  name: "john"

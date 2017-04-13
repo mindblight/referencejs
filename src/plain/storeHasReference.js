@@ -12,8 +12,7 @@ import type { Store, Reference } from './typings';
  * @return {Boolean}
  *
  * @example
- * import storehasReference from 'referencejs/plain/storehasReference';
- * import createReference from 'referencejs/plain/createReference';
+ * import { storehasReference, createReference } from 'referencejs';
  *
  * const store = {
  *   foo: 5,

@@ -10,7 +10,7 @@ import createPath from './createPath';
  * @return
  *
  * @example
- * import createReference from 'referencejs/plain/createReference'
+ * import { createReference } from 'referencejs'
  * const store = {
  *   foo: {
  *     bar: 5

@@ -10,8 +10,7 @@ import isPath from './isPath';
  * @param maybeReference
  * @return
  * @example
- * import isReference from 'referencejs/immutable/isReference';
- * import createReference from 'referencejs/immutable/createReference';
+ * import { isReference, createReference } from 'referencejs/immutable';
  *
  * isReference(createReference('foo')) === true;
  * isReference({}) === false;
