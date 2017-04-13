@@ -26,7 +26,8 @@
     "flux",
     "normalize",
     "denormalize",
-    "json"
+    "json",
+    "immutable"
   ],
   "files": [
     "immutable/",
