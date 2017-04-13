@@ -8,7 +8,8 @@ import isInteger from 'lodash/isInteger';
  * @return {boolean}
  *
  * @example
- * import isPathSegment from 'referencejs/isPathSegment';
+ * // Also imports from 'referencejs/immutable'
+ * import { isPathSegment } from 'referencejs';
  * isPathSegment('users') === true
  * isPathSegment(5) === true
  * isPathSegment({}) === false

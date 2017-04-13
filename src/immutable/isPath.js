@@ -8,7 +8,7 @@ import isPathSegment from '../isPathSegment';
  * @return {Boolean}
  * @example
  * import { List } from 'immutable';
- * import isPath from 'referencejs/immutable/isPath';
+ * import { isPath } from 'referencejs/immutable';
  *
  * isPath(List(['foo', 0])) === true;
  * isPath(['foo', 0]) === false;

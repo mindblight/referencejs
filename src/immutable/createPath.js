@@ -17,7 +17,7 @@ export type FirstArg = FirstArgPlain | List<PathSegment>;
  *
  * @example
  * import { List } from 'immutable'
- * import createPath from 'referencejs/immutable/createPath';
+ * import { createPath } from 'referencejs/immutable';
  * createPath(['foo', 'bar']);
  * createPath('foo', 'bar');
  * createPath(List(['foo', 'bar']));

@@ -13,8 +13,7 @@ import type { ImmutableStore, ImmutableReference } from './typings';
  *
  * @example
  * import { fromJS } from 'immutable';
- * import createReference from 'referencejs/immutable/createReference';
- * import dereference from 'referencejs/immutable/dereference';
+ * import { createReference, dereference } from 'referencejs/immutable';
  *
  * const user = fromJS({
  *  name: "john"
